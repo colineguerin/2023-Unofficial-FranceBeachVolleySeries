@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card m-5 p-3" style="border: none">
+        <h1 class="mx-auto my-4">{{ article.title }}</h1>
+        <p class="card-text d-flex justify-content-end"><small class="text-body-secondary">Publié le {{ article.createdAt ? article.createdAt|date('d-m-Y') : '' }}</small></p>
+        <img src="{{ vich_uploader_asset(article) }}" class="card-img-top" alt="..." style="height: 700px; object-fit: cover; object-position: center;">
+        <div class="card-body">
+            <h3 class="card-title">{{ article.subtitle }}</h3>
+            <p class="card-text">
+                {{ article.content|striptags }}
+            </p>
+        </div>
+    </div>
+{% endblock %}
