@@ -22,3 +22,14 @@ a {
 .fbvs-logo-img {
     width: 60px;
 }
+
+.fbvs-carousel-img {
+    max-height: 700px;
+    object-fit: cover;
+    object-position: top;
+    filter: brightness(90%);
+}
+
+.fbvs-text-shadow {
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
