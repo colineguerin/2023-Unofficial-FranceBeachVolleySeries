@@ -14,9 +14,14 @@ class ArticleController extends AbstractController
     {
         $articles = $articleRepository->findBy([], ['createdAt' => 'DESC']);
 
+        $carouselArticles = $articleRepository->findBy([], ['createdAt' => 'DESC'], 3);
+
         return $this->render(
             'article/index.html.twig',
-            ['articles' => $articles],
+            [
+                'articles' => $articles,
+                'carouselArticles' => $carouselArticles
+            ],
         );
     }
 

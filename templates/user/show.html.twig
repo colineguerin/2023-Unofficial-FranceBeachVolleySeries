@@ -1,0 +1,317 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <section>
+        {% if app.user %}
+            <div class="container pb-5">
+                {% for category, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="row">
+                            <div class="col">
+                                <div class="alert alert-{{ category }} w-25">
+                                    <i class="fa-solid fa-circle-check pe-2"></i>
+                                    {{ message }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                <div class="row">
+                    <div class="col">
+                        <div class="card mb-4">
+                            <h1 class="text-primary text-center pt-2 pb-1 fs-2 fw-bold">Bienvenue sur votre
+                                profil, {{ app.user.firstname }} !</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+
+                        <!-- Top-left section -->
+                        <div class="card mb-4">
+                            <div class="card-body text-center">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                                     alt="avatar"
+                                     class="rounded-circle img-fluid" style="width: 150px;">
+                                <h5 class="my-3">{{ app.user.firstname }} {{ app.user.lastname }}</h5>
+                                {% if app.user.club %}
+                                    <p class="text-muted mb-4">{{ app.user.club }}</p>
+                                {% endif %}
+                                <div class="d-flex justify-content-center mb-2">
+                                    <a href="{{ path('app_user_edit', {'id': app.user.id}) }}">
+                                        <button type="button" class="btn btn-primary">Modifier</button>
+                                    </a>
+                                    <a href="{{ path('app_user_edit', {'id': app.user.id}) }}">
+                                        <button type="button" class="btn btn-outline-danger ms-1">Supprimer</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of section -->
+
+                        <!-- Bottom-left section -->
+                        <div class="card mb-4 mb-lg-0">
+                            <div class="card-body">
+                                <p class="mb-4 text-danger fw-bold"><i class="fas fa-trophy pe-2"></i>Mes résultats</p>
+                                <table class="charts-css line show-primary-axis show-data-axes show-labels"
+                                       id="my-chart"
+                                       style="--color: var(--bs-danger); height: 250px; max-width: 400px; margin: 0 auto;">
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row"> Sept</th>
+                                        <td style="--start: 0.0; --size: 0.09"><span class="data"> 90 </span></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"> Nov</th>
+                                        <td style="--start: 0.09; --size: 0.15"><span class="data"> 240 </span></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"> Jan</th>
+                                        <td style="--start: 0.15; --size: 0.18"><span class="data"> 330 </span></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"> Mars</th>
+                                        <td style="--start: 0.18; --size: 0.18"><span class="data"> 330 </span></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"> Mai</th>
+                                        <td style="--start: 0.18; --size: 0.45"><span class="data"> 630 </span></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"> Juil</th>
+                                        <td style="--start: 0.45; --size: 0.75"><span class="data"> 1200 </span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of section -->
+
+                    <!-- Top-right section -->
+                    <div class="col-lg-8">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0 text-primary fw-bold"><i
+                                                    class="fa-solid fa-pen-to-square pe-2"></i>Nom complet</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">{{ app.user.firstname }} {{ app.user.lastname }}</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0 text-primary fw-bold"><i
+                                                    class="fa-solid fa-address-card pe-2"></i>Numéro de licence</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">{{ app.user.permitNumber }}</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0 text-primary fw-bold"><i class="fa-solid fa-shield pe-2"></i>Club
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        {% if app.user.club %}
+                                            <p class="text-muted mb-0">{{ app.user.club }}</p>
+                                        {% else %}
+                                            <p class="text-muted mb-0">Aucun club enregistré</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0 text-primary fw-bold"><i class="fa-solid fa-venus-mars pe-2"></i>Sexe
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">{{ app.user.gender ? 'Femme' : 'Homme' }}</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0 text-primary fw-bold"><i class="fa-solid fa-envelope pe-2"></i>Adresse
+                                            email</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">{{ app.user.email }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of section -->
+
+                        <div class="row">
+                            <!-- Bottom-middle section -->
+                            <div class="col-md-6">
+                                <div class="card mb-4 mb-md-0">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between px-2">
+                                            <p class="mb-4 text-success fw-bold"><i class="fas fa-user-group pe-2"></i>Mes
+                                                équipes</p>
+                                            <div class="mb-4 dropdown">
+                                                <button class="border-0 bg-white" data-bs-toggle="dropdown"
+                                                        aria-expanded="false"><i class="fas fa-plus text-success"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="{{ path('app_team_new') }}">Ajouter
+                                                            une équipe</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        {% if teams is empty %}
+                                            <div class="px-2">
+                                                <p>Vous n'avez aucune équipe pour le moment.</p>
+                                            </div>
+                                        {% else %}
+                                            <ul class="list-group list-group-flush rounded-3">
+                                                {% for team in teams %}
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <div class="dropdown">
+                                                            <button class="border-0 bg-white" data-bs-toggle="dropdown"
+                                                                    aria-expanded="false"><i
+                                                                        class="fas fa-ellipsis-vertical fa-lg"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                {% if not team.isActive %}
+                                                                    <li>{{ include('team/reactivate.html.twig') }}</li>
+                                                                {% endif %}
+                                                                    <li>{{ include('team/delete.html.twig') }}</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="d-flex flex-column align-items-end">
+                                                            <p class="mb-0">{{ team.players[0].firstname }} {{ team.players[0].lastname }}
+                                                                /
+                                                                {{ team.players[1].firstname }} {{ team.players[1].lastname }}</p>
+                                                            {% if team.isActive %}
+                                                                <p class="text-success mb-0"><small
+                                                                            class="text-body-success">Active</small></p>
+                                                            {% else %}
+                                                                <p class="text-muted mb-0"><small
+                                                                            class="text-body-secondary">Inactive</small>
+                                                                </p>
+                                                            {% endif %}
+                                                        </div>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End of section -->
+
+                            <!-- Bottom-right section -->
+                            <div class="col-md-6">
+                                <div class="card mb-4 mb-md-0">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between px-2">
+                                            <p class="mb-4 text-warning fw-bold"><i class="fas fa-volleyball pe-2"></i>Mes
+                                                tournois</p>
+                                            <div class="mb-4 dropdown">
+                                                <button class="border-0 bg-white" data-bs-toggle="dropdown"
+                                                        aria-expanded="false"><i class="fas fa-plus text-warning"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="/tournois">S'inscrire à un
+                                                            tournoi</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <ul class="list-group list-group-flush rounded-3">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <div class="dropdown">
+                                                    <button class="border-0 bg-white" data-bs-toggle="dropdown"
+                                                            aria-expanded="false"><i
+                                                                class="fas fa-ellipsis-vertical fa-lg"></i></button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="/tournois">Voir les
+                                                                résultats</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="d-flex flex-column align-items-end">
+                                                    <p class="mb-0">Ré Beach Open</p>
+                                                    <p class="text-muted mb-0"><small class="text-body-secondary">Série
+                                                            1
+                                                            Féminin - 1500</small></p>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <div class="dropdown">
+                                                    <button class="border-0 bg-white" data-bs-toggle="dropdown"
+                                                            aria-expanded="false"><i
+                                                                class="fas fa-ellipsis-vertical fa-lg"></i></button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="/tournois">Voir les
+                                                                résultats</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="d-flex flex-column align-items-end">
+                                                    <p class="mb-0">Ré Beach Open</p>
+                                                    <p class="text-muted mb-0"><small class="text-body-secondary">Série
+                                                            1
+                                                            Féminin - 1500</small></p>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <div class="dropdown">
+                                                    <button class="border-0 bg-white" data-bs-toggle="dropdown"
+                                                            aria-expanded="false"><i
+                                                                class="fas fa-ellipsis-vertical fa-lg"></i></button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="/tournois">Voir les
+                                                                résultats</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="d-flex flex-column align-items-end">
+                                                    <p class="mb-0">Ré Beach Open</p>
+                                                    <p class="text-muted mb-0"><small class="text-body-secondary">Série
+                                                            1
+                                                            Féminin - 1500</small></p>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <div class="dropdown">
+                                                    <button class="border-0 bg-white" data-bs-toggle="dropdown"
+                                                            aria-expanded="false"><i
+                                                                class="fas fa-ellipsis-vertical fa-lg"></i></button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="/tournois">Voir les
+                                                                résultats</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="d-flex flex-column align-items-end">
+                                                    <p class="mb-0">Ré Beach Open</p>
+                                                    <p class="text-muted mb-0"><small class="text-body-secondary">Série
+                                                            1
+                                                            Féminin - 1500</small></p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End of section -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
+            <p>Aucun résultat trouvé</p>
+        {% endif %}
+
+    </section>
+
+{% endblock %}

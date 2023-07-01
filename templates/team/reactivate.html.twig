@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_team_reactivate', {'id': team.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir réactiver cette équipe ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('reactivate' ~ team.id) }}">
+    <button class="border-0 bg-transparent dropdown-item">Réactiver</button>
+</form>

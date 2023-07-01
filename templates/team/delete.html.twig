@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_team_delete', {'id': team.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cette équipe ? Vous pourrez la créer à nouveau mais vos résultats ainsi que votre historique de tournois seront perdus.');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ team.id) }}">
+    <button class="border-0 bg-transparent dropdown-item">Supprimer</button>
+</form>

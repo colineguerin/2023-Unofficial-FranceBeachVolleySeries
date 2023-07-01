@@ -22,3 +22,28 @@ a {
 .fbvs-logo-img {
     width: 60px;
 }
+
+.fbvs-carousel-img {
+    max-height: 700px;
+    object-fit: cover;
+    object-position: top;
+    filter: brightness(90%);
+}
+
+.fbvs-card-img {
+    height: 400px;
+    object-fit: cover;
+    object-position: top;
+}
+
+.fbvs-text-shadow {
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.fbvs-hover-size {
+    transition: transform 0.2s ease-in-out;
+}
+
+.fbvs-hover-size:hover {
+    transform: scale(1.05);
+}
