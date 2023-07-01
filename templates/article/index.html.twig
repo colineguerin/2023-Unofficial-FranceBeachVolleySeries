@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="carouselExampleCaptions" class="carousel slide my-5">
+    <div id="carouselExampleCaptions" class="carousel slide">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
                     aria-current="true" aria-label="Slide 1"></button>
@@ -12,14 +12,16 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="{{ carouselArticles[0].picture }}" class="d-block w-100 fbvs-carousel-img" alt="beach photo 1">
+                <img src="{{ carouselArticles[0].picture }}" class="d-block w-100 fbvs-carousel-img"
+                     alt="beach photo 1">
                 <div class="carousel-caption d-none d-md-block">
                     <h2 class="fw-bold fbvs-text-shadow">{{ carouselArticles[0].title }}</h2>
                     <p class="fw-bold fbvs-text-shadow">{{ carouselArticles[0].subtitle }}</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="{{ carouselArticles[1].picture }}" class="d-block w-100 fbvs-carousel-img" alt="beach photo 2">
+                <img src="{{ carouselArticles[1].picture }}" class="d-block w-100 fbvs-carousel-img"
+                     alt="beach photo 2">
                 <div class="carousel-caption d-none d-md-block">
                     <h2 class="fw-bold fbvs-text-shadow">{{ carouselArticles[1].title }}</h2>
                     <p class="fw-bold fbvs-text-shadow">{{ carouselArticles[1].subtitle }}</p>
@@ -48,27 +50,32 @@
 
     <div class="row">
         <div class="col">
-            <div class="card mb-5 d-flex w-100 flex-row justify-content-center py-3">
+            <div class="card my-5 d-flex w-100 flex-row justify-content-center py-3">
                 <h1 class="text-primary text-center fw-bold fs-3 mb-0">Les dernières actualités beach-volley</h1>
             </div>
         </div>
     </div>
-    <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="row row-cols-1 row-cols-md-2 g-4 mb-5">
         {% for article in articles %}
             <div class="col">
-                <div class="card mb-5 w-75 mx-auto p-2">
-                    <img src="{{ article.picture }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="{{ path("article_show", { id: article.id }) }}"
-                                                  style="color: var(--bs-dark); text-decoration: none;">{{ article.title }}</a>
-                        </h5>
-                        {% if article.subtitle|length > 60 %}
-                            <p class="card-text">{{ article.subtitle|slice(0, 60) ~ '...' }}</p>
-                        {% else %}
-                            <p class="card-text">{{ article.subtitle }}</p>
-                        {% endif %}
-                        <p class="card-text"><small class="text-body-secondary">Publié le {{ article.createdAt ? article.createdAt|date('d-m-Y') : '' }}</small></p>
-                    </div>
+                <div class="card mx-auto p-2 shadow fbvs-hover-size">
+                    <a href="{{ path("article_show", { id: article.id }) }}"
+                       style="color: var(--bs-dark); text-decoration: none;">
+                        <img src="{{ article.picture }}" class="card-img-top img-fluid fbvs-card-img" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ article.title }}
+                            </h5>
+                            {% if article.subtitle|length > 60 %}
+                                <p class="card-text">{{ article.subtitle|slice(0, 60) ~ '...' }}</p>
+                            {% else %}
+                                <p class="card-text">{{ article.subtitle }}</p>
+                            {% endif %}
+                            <div class="d-flex justify-content-end w-100">
+                                <p class="card-text mb-0"><small class="text-body-secondary">Publié
+                                        le {{ article.createdAt ? article.createdAt|date('d-m-Y') : '' }}</small></p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         {% endfor %}
