@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Team;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,19 @@ class TeamRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findOneByPlayers(User $player1, User $player2): ?Team
+    {
+        return $this->createQueryBuilder('t')
+            ->innerJoin('t.players', 'p1')
+            ->innerJoin('t.players', 'p2')
+            ->andWhere('p1 = :player1')
+            ->andWhere('p2 = :player2')
+            ->setParameter('player1', $player1)
+            ->setParameter('player2', $player2)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
 //    /**
