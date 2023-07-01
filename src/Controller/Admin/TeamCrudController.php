@@ -4,6 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\Team;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 
 class TeamCrudController extends AbstractCrudController
 {
@@ -12,14 +16,14 @@ class TeamCrudController extends AbstractCrudController
         return Team::class;
     }
 
-    /*
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            IdField::new('id')->hideOnForm(),
+            DateTimeField::new('createdAt')->hideOnForm(),
+            DateTimeField::new('updatedAt')->hideOnForm(),
+            AssociationField::new('players', 'Joueurs'),
+            BooleanField::new('isActive'),
         ];
     }
-    */
 }

@@ -35,7 +35,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Ajouter un article', 'fas fa-plus', Article::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Afficher les articles', 'fas fa-eye', Article::class)
         ]);
-        yield MenuItem::subMenu('Clubs', 'fas fa-bars')->setSubItems([
+        yield MenuItem::subMenu('Clubs', 'fas fa-shield')->setSubItems([
             MenuItem::linkToCrud('Ajouter un club', 'fas fa-plus', Club::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Afficher les clubs', 'fas fa-eye', Club::class)
         ]);
@@ -51,8 +51,8 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Ajouter un tournoi', 'fas fa-plus', Tournament::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Afficher les tournois', 'fas fa-eye', Tournament::class)
         ]);
-        yield MenuItem::subMenu('Results', 'fas fa-medal')->setSubItems([
+        yield MenuItem::subMenu('Results', 'fas fa-trophy')->setSubItems([
         ]);
-        yield MenuItem::linkToRoute('Quitter le dashboard', 'fas fa-right-from-bracket', 'index');
+        yield MenuItem::linkToRoute('Quitter le dashboard', 'fas fa-right-from-bracket', 'app_index');
     }
 }
