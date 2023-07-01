@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg bg-primary py-0" data-bs-theme="dark">
+    <div class="container-fluid">
+        <img src="/assets/images/fbvs_logo.png" alt="logo" class="fbvs-logo-img pt-1">
+        <a class="navbar-brand px-3" href="/">France Beach-Volley Series</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav d-flex justify-content-end w-100">
+                {% if is_granted("ROLE_USER") %}
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="/joueur">Profil</a>
+                    </li>
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="/tournois">Tournois</a>
+                    </li>
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="#">Classement</a>
+                    </li>
+                {% endif %}
+                {% if is_granted("ROLE_ADMIN") %}
+                    <li class="nav-item px-3">
+                        <a href="/admin" class="nav-link">Dashboard</a>
+                    </li>
+                {% endif %}
+                {# <li>
+                    {% if app.user %}
+                        <button class="btn btn-light"><a href="{{ path('app_logout') }}" class="text-decoration-none">Se déconnecter</a></button>
+                    {% else %}
+                        <button class="btn btn-light"><a href="{{ path('app_login') }}" class="text-decoration-none">Se connecter</a></button>
+                    {% endif %}
+                </li>  #}
+            </ul>
+        </div>
+    </div>
+</nav>
