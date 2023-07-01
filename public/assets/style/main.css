@@ -1,0 +1,24 @@
+* {
+    --fbvs-bg-color-light: #F5F5CE;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--fbvs-bg-color-light);
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.fbvs-body-frame {
+    width: 90%;
+    margin: 0 auto;
+}
+
+a {
+    color: var(--bs-primary);
+}
+
+.fbvs-logo-img {
+    width: 60px;
+}

@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <section class="vh-80">
+        <div class="container-fluid h-custom mt-5">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-8 col-lg-6 col-xl-4">
+                    <img src="assets/images/fbvs_login.png"
+                         class="img-fluid w-100" alt="Login image">
+                </div>
+                <div class="col-md-9 col-lg-6 col-xl-5 offset-xl-1">
+                    <h1 class="text-primary py-3">Se connecter</h1>
+                    <p class="small fw-bold">Seuls les joueurs licenciés peuvent se connecter</p>
+                    <form method="post">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+
+                        <div class="form-outline mb-4">
+                            <label class="visually-hidden" for="inputPermitNumber">Numéro de licence</label>
+                            <input type="text" id="inputPermitNumber" class="form-control form-control-lg" name="permitNumber" value="{{ last_username }}"
+                                   placeholder="Numéro de licence" autocomplete="username" required autofocus>
+                        </div>
+
+                        <div class="form-outline mb-3">
+                            <label class="visually-hidden" for="inputPassword">Mot de passe</label>
+                            <input type="password" id="inputPassword" class="form-control form-control-lg"
+                                   name="password" placeholder="Mot de passe" autocomplete="current-password" required>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="form-check mb-0">
+                                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                                <label class="form-check-label" for="form2Example3">
+                                    Se souvenir de moi
+                                </label>
+                            </div>
+                            <a href="#" class="text-body">Mot de passe oublié ?</a>
+                        </div>
+
+                        <input type="hidden" name="_csrf_token"
+                               value="{{ csrf_token('authenticate') }}"
+                        >
+
+                        {#
+                        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                        See https://symfony.com/doc/current/security/remember_me.html
+
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" name="_remember_me"> Remember me
+                            </label>
+                        </div>
+                        #}
+
+                        <div class="text-center text-lg-start mt-4 pt-2">
+                            <button type="submit" class="btn btn-primary btn-lg"
+                                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Se connecter</button>
+                            <p class="small fw-bold mt-2 pt-1 mb-0">Vos identifiants ne fonctionnent pas ? <a href="/contact"
+                                                                                                              class="link-danger">Contactez-nous</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+

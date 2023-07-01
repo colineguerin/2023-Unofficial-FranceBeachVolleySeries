@@ -24,7 +24,7 @@ As an admin, they will be able to:
 - Add new clubs with their information
 - Enter the results of the latest tournaments and update the national score board consequently
 
-The project was created in PHP 8.1 with the Symfony framework v6. It includes the EasyAdmin bundle for the admin dashboard as well as other useful symfony bundles. It uses Bootstrap for the style.
+The project was created in PHP 8.1 with the Symfony framework v6. It includes the EasyAdmin bundle for the admin dashboard as well as other useful symfony bundles. It uses Bootstrap for the style, as well as a bootstrap style guide from Bootswatch.
 
 To check it out, follow these easy steps:
 
