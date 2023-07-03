@@ -39,6 +39,19 @@ class TournamentRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByNameTypeOrLocation(string $search)
+    {
+        $queryBuilder = $this->createQueryBuilder('t')
+            ->where('t.name LIKE :search')
+            ->orWhere('t.category LIKE :search')
+            ->orWhere('t.location LIKE :search')
+            ->setParameter('search', '%' . $search . '%')
+            ->orderBy('t.name', 'ASC')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
 //    /**
 //     * @return Tournament[] Returns an array of Tournament objects
 //     */
