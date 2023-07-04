@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TournamentCrudController extends AbstractCrudController
 {
-    public CONST ACTION_DUPLICATE = 'duplicate';
+    public CONST ACTION_DUPLICATE = 'Dupliquer';
     public static function getEntityFqcn(): string
     {
         return Tournament::class;
@@ -31,13 +31,13 @@ class TournamentCrudController extends AbstractCrudController
         $duplicate = Action::new(self::ACTION_DUPLICATE)
             ->linkToCrudAction('duplicateTournament');
         return $actions
-            ->add(Crud::PAGE_EDIT, $duplicate);
+            ->add(Crud::PAGE_INDEX, $duplicate);
     }
 
     public function configureFields(string $pageName): iterable
     {
         yield IdField::new('id')->hideOnForm();
-        yield TextField::new('name', 'Nom du tournoi');
+        yield TextField::new('name', 'Nom du tournoi')->setRequired(true);
         yield TextField::new('category', 'Catégorie et genre')->setRequired(true);
         yield TextField::new('location', 'Lieu')->setRequired(true);
         yield DateTimeField::new('tournamentDate', 'Date et heure')->setRequired(true);
