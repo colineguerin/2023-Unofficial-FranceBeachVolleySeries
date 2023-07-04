@@ -4,10 +4,8 @@
 
     {% for category, messages in app.flashes %}
         {% for message in messages %}
-            <div class="d-flex w-100 justify-content-end">
-                <div class="w-25 alert alert-{{ category }}">
-                    {{ message }}
-                </div>
+            <div class="w-25 alert alert-{{ category }}">
+                {{ message }}
             </div>
         {% endfor %}
     {% endfor %}
