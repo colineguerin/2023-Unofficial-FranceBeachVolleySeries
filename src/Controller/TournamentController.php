@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Tournament;
+use App\Form\RegisterTournamentType;
 use App\Form\SearchTournamentType;
 use App\Repository\TournamentRepository;
 use DateTime;
@@ -48,6 +49,7 @@ class TournamentController extends AbstractController
             'tournaments' => $tournaments,
             'pastTournaments' => $pastTournaments,
             'upcomingTournaments' => $upcomingTournaments,
+            'now' => $currentDateTime,
             'form' => $form,
         ]);
     }
@@ -56,6 +58,25 @@ class TournamentController extends AbstractController
     public function show(Tournament $tournament): Response
     {
         return $this->render('tournament/show.html.twig', [
+            'tournament' => $tournament,
+        ]);
+    }
+
+    #[Route('/{id}/inscription', name: 'app_tournament_register', methods: ['GET', 'POST'])]
+    public function registerTournament(Request $request, Tournament $tournament, TournamentRepository $tournamentRepository): Response
+    {
+        $form = $this->createForm(RegisterTournamentType::class, $tournament);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $team = $tournament->getTeams()->first();
+            $tournament->addTeam($team);
+            $tournamentRepository->save($tournament, true);
+            return $this->redirectToRoute('app_tournament_index', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('tournament/register.html.twig', [
+            'form' => $form,
             'tournament' => $tournament,
         ]);
     }
