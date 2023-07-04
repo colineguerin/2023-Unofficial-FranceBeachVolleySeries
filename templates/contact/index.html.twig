@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% for category, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="w-25 alert alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <section class="p-5">
+        <div class="container-fluid h-custom">
+            <div class="row d-flex justify-content-between align-items-center h-100">
+                <div class="col-md-9 col-lg-6 col-xl-6">
+                    <h1 class="text-primary text-center">Contactez-nous</h1>
+                    <p class="small fw-bold text-center mb-0">En cas de problème de connexion, de création d'équipe,
+                        d'inscription à un tournoi ou pour toute autre question.</p>
+                    <div class="container">
+                        {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_row(form.firstname, {'attr': {'class': 'form-control'}, 'label': ' '}) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_row(form.lastname, {'attr': {'class': 'form-control'}, 'label': ' '}) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form_row(form.email, {'attr': {'class': 'form-control'}, 'label': ' '}) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form_row(form.topic, {'attr': {'class': 'form-control'}, 'label': ' '}) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form_row(form.content, {'attr': {'class': 'form-control', 'rows': '8'}, 'label': ' '}) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4 text-center">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary'}, 'label': 'ENVOYER'}) }}
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+
+                </div>
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <img src="assets/images/fbvs_contact.png"
+                         class="img-fluid w-100" alt="Contact image">
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

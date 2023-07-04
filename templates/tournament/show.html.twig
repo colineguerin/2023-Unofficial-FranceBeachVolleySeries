@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card mb-4">
+                    <h1 class="text-primary text-center pt-3 pb-2 fs-3 fw-bold">Tournoi : {{ tournament.name }}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="wrapper wrapper-content animated fadeInUp">
+                    <div class="ibox">
+                        <div class="ibox-content card p-5">
+
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <dl class="dl-horizontal">
+                                        <dt><i class="fa-solid fa-location-dot pe-2"></i>A :</dt> <dd>{{ tournament.location }}</dd>
+                                        <dt><i class="fa-solid fa-calendar pe-2"></i>Le :</dt> <dd>{{ tournament.tournamentDate ? tournament.tournamentDate|date('d-m-Y') : '' }} à {{ tournament.tournamentDate ? tournament.tournamentDate|date('H:i') : '' }}</dd>
+                                    </dl>
+                                </div>
+                                <div class="col-lg-5" id="cluster_info">
+                                    <dl class="dl-horizontal">
+                                        <dt><i class="fa-solid fa-shield pe-2"></i>Organisé par :</dt> <dd>{{ tournament.club }}</dd>
+                                        <dt><i class="fa-solid fa-trophy pe-2"></i>Catégorie :</dt> <dd>{{ tournament.category }}</dd>
+                                    </dl>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="d-flex justify-content-end">
+                                        <span class="badge text-bg-danger h-75 fs-6">Passé</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-3">
+                                <div class="col-lg-12">
+                                    <dl class="dl-horizontal">
+                                        <dt>Inscriptions :</dt>
+                                        <dd>
+                                            <div class="progress progress-striped active m-b-sm">
+                                                <div style="width: 60%;" class="progress-bar"></div>
+                                            </div>
+                                            <small>Il reste encore <strong>6</strong> places !</small>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="row m-t-sm">
+                                <div class="col-lg-12">
+                                    <div class="panel blank-panel">
+                                        <div class="panel-heading">
+                                            <div class="panel-options">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="nav-item"><a href="#tab-1" class="nav-link active" data-toggle="tab" aria-expanded="false">Participants</a></li>
+                                                    <li class="nav-item"><a href="#tab-2" class="nav-link" data-toggle="tab" aria-expanded="true">Résultats</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-body">
+
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="tab-1">
+
+                                                </div>
+
+                                                <div class="tab-pane" id="tab-2">
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="wrapper wrapper-content project-manager">
+                    <h4>S'inscrire</h4>
+                    {# if registeredTeams < maxTeam #}
+                    <p>
+                        Il reste encore des places pour vous inscrire. Veuillez sélectionner ci-dessous l'équipe avec laquelle vous souhaitez effectuer ce tournoi.
+                    </p>
+                    <select class="form-select mb-3" aria-label="Default select example">
+                        <option selected>Choisissez une équipe</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <p class="small fw-bold">Si vous n'avez pas d'équipe, vous pouvez en créer une <a
+                                href="{{ path('app_team_new') }}">ici</a> ou réactiver une ancienne équipe sur votre profil.</p>
+                    <div class="text-center m-t-md">
+                        <a href="#" class="btn btn-xs btn-primary">S'INSCRIRE</a>
+                    </div>
+                    {# else
+                    <p>Les inscriptions sont fermées !</p>#}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

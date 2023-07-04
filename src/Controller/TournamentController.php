@@ -2,17 +2,83 @@
 
 namespace App\Controller;
 
+use App\Entity\Tournament;
+use App\Form\RegisterTournamentType;
+use App\Form\SearchTournamentType;
+use App\Repository\TournamentRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/tournois')]
 class TournamentController extends AbstractController
 {
-    #[Route('/tournament', name: 'app_tournament')]
-    public function index(): Response
+    #[Route('/', name: 'app_tournament_index', methods: ['GET', 'POST'])]
+    public function index(Request $request, TournamentRepository $tournamentRepository): Response
     {
+        $form = $this->createForm(SearchTournamentType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search = $form->getData()['search'];
+            $tournaments = $tournamentRepository->findByNameTypeOrLocation($search);
+        } else {
+            $tournaments = $tournamentRepository->findBy([], ['tournamentDate' => 'ASC']);
+        }
+
+        $allTournaments = $tournamentRepository->findAll();
+
+        $currentDateTime = new DateTime();
+
+        $pastTournaments = 0;
+        $upcomingTournaments = 0;
+
+        foreach ($allTournaments as $allTournament) {
+            $tournamentDate = $allTournament->getTournamentDate();
+
+            if ($tournamentDate < $currentDateTime) {
+                $pastTournaments++;
+            } else {
+                $upcomingTournaments++;
+            }
+        }
+
         return $this->render('tournament/index.html.twig', [
-            'controller_name' => 'TournamentController',
+            'tournaments' => $tournaments,
+            'pastTournaments' => $pastTournaments,
+            'upcomingTournaments' => $upcomingTournaments,
+            'now' => $currentDateTime,
+            'form' => $form,
         ]);
     }
+
+    #[Route('/{id}', name: 'app_tournament_show', methods: ['GET'])]
+    public function show(Tournament $tournament): Response
+    {
+        return $this->render('tournament/show.html.twig', [
+            'tournament' => $tournament,
+        ]);
+    }
+
+    #[Route('/{id}/inscription', name: 'app_tournament_register', methods: ['GET', 'POST'])]
+    public function registerTournament(Request $request, Tournament $tournament, TournamentRepository $tournamentRepository): Response
+    {
+        $form = $this->createForm(RegisterTournamentType::class, $tournament);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $team = $tournament->getTeams()->first();
+            $tournament->addTeam($team);
+            $tournamentRepository->save($tournament, true);
+            return $this->redirectToRoute('app_tournament_index', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('tournament/register.html.twig', [
+            'form' => $form,
+            'tournament' => $tournament,
+        ]);
+    }
+
 }
