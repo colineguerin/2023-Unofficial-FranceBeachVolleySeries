@@ -12,7 +12,7 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="{{ carouselArticles[0].picture }}" class="d-block w-100 fbvs-carousel-img"
+                <img src="{{ vich_uploader_asset(carouselArticles[0]) }}" class="d-block w-100 fbvs-carousel-img"
                      alt="beach photo 1">
                 <div class="carousel-caption d-none d-md-block">
                     <h2 class="fw-bold fbvs-text-shadow">{{ carouselArticles[0].title }}</h2>
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="{{ carouselArticles[1].picture }}" class="d-block w-100 fbvs-carousel-img"
+                <img src="{{ vich_uploader_asset(carouselArticles[1]) }}" class="d-block w-100 fbvs-carousel-img"
                      alt="beach photo 2">
                 <div class="carousel-caption d-none d-md-block">
                     <h2 class="fw-bold fbvs-text-shadow">{{ carouselArticles[1].title }}</h2>
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="{{ carouselArticles[2].picture }}" class="d-block w-100 fbvs-carousel-img"
+                <img src="{{ vich_uploader_asset(carouselArticles[2]) }}" class="d-block w-100 fbvs-carousel-img"
                      alt="beach photo 3">
                 <div class="carousel-caption d-none d-md-block">
                     <h2 class="fw-bold fbvs-text-shadow">{{ carouselArticles[2].title }}</h2>
@@ -61,7 +61,7 @@
                 <div class="card mx-auto p-2 shadow fbvs-hover-size">
                     <a href="{{ path("article_show", { id: article.id }) }}"
                        style="color: var(--bs-dark); text-decoration: none;">
-                        <img src="{{ article.picture }}" class="card-img-top img-fluid fbvs-card-img" alt="...">
+                        <img src="{{ vich_uploader_asset(article) }}" class="card-img-top img-fluid fbvs-card-img" alt="...">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">{{ article.title }}
                             </h5>

@@ -3,10 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
+#[Vich\Uploadable]
 class Article
 {
     #[ORM\Id]
@@ -22,6 +26,13 @@ class Article
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
+
+    #[Vich\UploadableField(mapping: 'picture_file', fileNameProperty: 'picture')]
+    #[Assert\File(
+        maxSize: '1M',
+        mimeTypes: ['image/jpeg', 'image/jpg', 'image/png'],
+    )]
+    private ?File $pictureFile = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
@@ -71,6 +82,20 @@ class Article
         $this->picture = $picture;
 
         return $this;
+    }
+
+    public function setPictureFile(File $image = null): Article
+    {
+        $this->pictureFile = $image;
+        if ($image) {
+            $this->updatedAt = new \DateTimeImmutable('now');
+        }
+        return $this;
+    }
+
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
     }
 
     public function getContent(): ?string
