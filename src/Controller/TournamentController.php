@@ -25,7 +25,7 @@ class TournamentController extends AbstractController
             $search = $form->getData()['search'];
             $tournaments = $tournamentRepository->findByNameTypeOrLocation($search);
         } else {
-            $tournaments = $tournamentRepository->findBy([], ['tournamentDate' => 'ASC']);
+            $tournaments = $tournamentRepository->findBy([], ['tournamentDate' => 'DESC']);
         }
 
         $allTournaments = $tournamentRepository->findAll();
