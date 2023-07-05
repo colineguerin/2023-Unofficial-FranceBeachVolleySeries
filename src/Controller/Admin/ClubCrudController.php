@@ -6,6 +6,7 @@ use App\Entity\Club;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\{Action, Actions, Crud};
 
 class ClubCrudController extends AbstractCrudController
 {
@@ -14,6 +15,11 @@ class ClubCrudController extends AbstractCrudController
         return Club::class;
     }
 
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->add(Crud::PAGE_INDEX, Action::DETAIL);
+    }
     public function configureFields(string $pageName): iterable
     {
         return [
