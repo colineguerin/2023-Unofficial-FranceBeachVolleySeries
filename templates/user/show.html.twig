@@ -54,7 +54,7 @@
                         <!-- Bottom-left section -->
                         <div class="card mb-4 mb-lg-0">
                             <div class="card-body">
-                                <p class="mb-4 text-danger fw-bold"><i class="fas fa-trophy pe-2"></i>Mes résultats</p>
+                                <p class="mb-4 fw-bold"><i class="fas fa-trophy pe-2"></i>Mes résultats</p>
                                 <table class="charts-css line show-primary-axis show-data-axes show-labels"
                                        id="my-chart"
                                        style="--color: var(--bs-danger); height: 250px; max-width: 400px; margin: 0 auto;">
@@ -157,11 +157,11 @@
                                 <div class="card mb-4 mb-md-0">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between px-2">
-                                            <p class="mb-4 text-success fw-bold"><i class="fas fa-user-group pe-2"></i>Mes
+                                            <p class="mb-4 fw-bold"><i class="fas fa-user-group pe-2"></i>Mes
                                                 équipes</p>
                                             <div class="mb-4 dropdown">
                                                 <button class="border-0 bg-white" data-bs-toggle="dropdown"
-                                                        aria-expanded="false"><i class="fas fa-plus text-success"></i>
+                                                        aria-expanded="false"><i class="fas fa-plus"></i>
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <li><a class="dropdown-item" href="{{ path('app_team_new') }}">Ajouter
@@ -216,87 +216,36 @@
                                 <div class="card mb-4 mb-md-0">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between px-2">
-                                            <p class="mb-4 text-warning fw-bold"><i class="fas fa-volleyball pe-2"></i>Mes
+                                            <p class="mb-4 fw-bold"><i class="fas fa-volleyball pe-2"></i>Mes
                                                 tournois</p>
                                             <div class="mb-4 dropdown">
                                                 <button class="border-0 bg-white" data-bs-toggle="dropdown"
-                                                        aria-expanded="false"><i class="fas fa-plus text-warning"></i>
+                                                        aria-expanded="false"><i class="fas fa-plus"></i>
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="/tournois">S'inscrire à un
+                                                    <li><a class="dropdown-item" href="{{ path('app_tournament_index') }}">S'inscrire à un
                                                             tournoi</a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <ul class="list-group list-group-flush rounded-3">
+                                            {% for team in teams %}
+                                            {% for tournament in team.tournaments %}
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <div class="dropdown">
-                                                    <button class="border-0 bg-white" data-bs-toggle="dropdown"
-                                                            aria-expanded="false"><i
-                                                                class="fas fa-ellipsis-vertical fa-lg"></i></button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="/tournois">Voir les
-                                                                résultats</a></li>
-                                                    </ul>
+                                                <div class="d-flex flex-column">
+                                                    <p class="mb-0"><a class="dropdown-item" href="{{ path('app_tournament_show', {'id': tournament.id}) }}">{{ tournament.name }}</a></p>
+                                                    <p class="text-muted mb-0"><small class="text-body-secondary">{{ tournament.category }}</small></p>
                                                 </div>
-                                                <div class="d-flex flex-column align-items-end">
-                                                    <p class="mb-0">Ré Beach Open</p>
-                                                    <p class="text-muted mb-0"><small class="text-body-secondary">Série
-                                                            1
-                                                            Féminin - 1500</small></p>
+                                                <div class="">
+                                                    {% if tournament.tournamentDate < now %}
+                                                        <span class="badge text-bg-danger">Passé</span>
+                                                    {% else %}
+                                                        <span class="badge text-bg-success">A venir</span>
+                                                    {% endif %}
                                                 </div>
                                             </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <div class="dropdown">
-                                                    <button class="border-0 bg-white" data-bs-toggle="dropdown"
-                                                            aria-expanded="false"><i
-                                                                class="fas fa-ellipsis-vertical fa-lg"></i></button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="/tournois">Voir les
-                                                                résultats</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="d-flex flex-column align-items-end">
-                                                    <p class="mb-0">Ré Beach Open</p>
-                                                    <p class="text-muted mb-0"><small class="text-body-secondary">Série
-                                                            1
-                                                            Féminin - 1500</small></p>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <div class="dropdown">
-                                                    <button class="border-0 bg-white" data-bs-toggle="dropdown"
-                                                            aria-expanded="false"><i
-                                                                class="fas fa-ellipsis-vertical fa-lg"></i></button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="/tournois">Voir les
-                                                                résultats</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="d-flex flex-column align-items-end">
-                                                    <p class="mb-0">Ré Beach Open</p>
-                                                    <p class="text-muted mb-0"><small class="text-body-secondary">Série
-                                                            1
-                                                            Féminin - 1500</small></p>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <div class="dropdown">
-                                                    <button class="border-0 bg-white" data-bs-toggle="dropdown"
-                                                            aria-expanded="false"><i
-                                                                class="fas fa-ellipsis-vertical fa-lg"></i></button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="/tournois">Voir les
-                                                                résultats</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="d-flex flex-column align-items-end">
-                                                    <p class="mb-0">Ré Beach Open</p>
-                                                    <p class="text-muted mb-0"><small class="text-body-secondary">Série
-                                                            1
-                                                            Féminin - 1500</small></p>
-                                                </div>
-                                            </li>
+                                            {% endfor %}
+                                            {% endfor %}
                                         </ul>
                                     </div>
                                 </div>
