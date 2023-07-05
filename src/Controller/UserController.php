@@ -54,9 +54,12 @@ class UserController extends AbstractController
 
         $teams = $user->getTeams();
 
+        $currentDate = new \DateTime();
+
         return $this->render('user/show.html.twig', [
             'user' => $user,
-            'teams' => $teams
+            'teams' => $teams,
+            'now' => $currentDate,
         ]);
     }
 

@@ -129,6 +129,9 @@ class Team
     }
 
     public function __toString(): string {
-        return $this->id;
+        $firstPlayerName = $this->players[0]->getFirstname() . ' ' . $this->players[0]->getLastname();
+        $secondPlayerName = $this->players[1]->getFirstname() . ' ' . $this->players[1]->getLastname();
+
+        return $firstPlayerName . ' / ' . $secondPlayerName;
     }
 }

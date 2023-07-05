@@ -3,6 +3,18 @@
 {% block body %}
 
     <div class="container">
+        {% for category, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="row">
+                    <div class="col">
+                        <div class="alert alert-{{ category }} w-25">
+                            <i class="fa-solid fa-circle-check pe-2"></i>
+                            {{ message }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
         <div class="row">
             <div class="col">
                 <div class="card mb-4">
@@ -67,7 +79,6 @@
                                     <th scope="col">Catégorie</th>
                                     <th scope="col">Lieu</th>
                                     <th scope="col">Statut</th>
-                                    <th scope="col">Inscriptions</th>
                                     <th scope="col">Détails</th>
                                 </tr>
                                 </thead>
@@ -90,26 +101,17 @@
                                             {% endif %}
 
                                         </td>
-                                        <td>
-                                            <p class="mb-0">Complet</p>
-
-                                            <div class="progress mt-2" style="height: 5px;">
-                                                <div class="progress-bar bg-danger" role="progressbar"
-                                                     style="width: 100%;" aria-valuenow="100" aria-valuemin="0"
-                                                     aria-valuemax="100"></div>
-                                            </div>
-                                        </td>
 
                                         <td>
                                             <div class="action d-flex">
-                                                <a href="#" class="text-primary mt-2 mx-1 icon-link icon-link-hover"> <i
+                                                <a href="{{ path('app_tournament_register', { id: tournament.id }) }}" class="text-primary mt-2 mx-1 icon-link icon-link-hover"> <i
                                                             class="fa fa-arrow-right-from-bracket h5 m-0"></i></a>
                                             </div>
                                         </td>
                                     </tr>
                                 {% else %}
                                     <tr>
-                                        <td colspan="7">
+                                        <td colspan="6">
                                             <p class="text-muted mt-3">Aucun tournoi n'a été référencé pour le
                                                 moment.</p>
                                         </td>

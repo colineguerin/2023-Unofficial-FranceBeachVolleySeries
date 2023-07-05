@@ -4,9 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Tournament;
 use Doctrine\ORM\EntityManagerInterface;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\{Action, Actions, Crud};
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -25,13 +23,13 @@ class TournamentCrudController extends AbstractCrudController
     {
         return Tournament::class;
     }
-
     public function configureActions(Actions $actions): Actions
     {
         $duplicate = Action::new(self::ACTION_DUPLICATE)
             ->linkToCrudAction('duplicateTournament');
         return $actions
-            ->add(Crud::PAGE_INDEX, $duplicate);
+            ->add(Crud::PAGE_INDEX, $duplicate)
+            ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
 
     public function configureFields(string $pageName): iterable
@@ -43,6 +41,7 @@ class TournamentCrudController extends AbstractCrudController
         yield DateTimeField::new('tournamentDate', 'Date et heure')->setRequired(true);
         yield AssociationField::new('club', 'Club organisateur')->setRequired(true);
         yield IntegerField::new('maxTeam', 'Nombre d\'équipes maximum');
+        yield AssociationField::new('teams', 'Equipes inscrites');
         yield TextEditorField::new('details', 'Détails');
     }
 
