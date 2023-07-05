@@ -57,8 +57,16 @@ class TournamentController extends AbstractController
     #[Route('/{id}', name: 'app_tournament_show', methods: ['GET'])]
     public function show(Tournament $tournament): Response
     {
+        $teams = $tournament->getTeams();
+
+        $registeredTeams = count($teams);
+        $availableSpots = $tournament->getMaxTeam() - $registeredTeams;
+        $completionPercentage = 100 - (($availableSpots / $tournament->getMaxTeam()) * 100);
+
         return $this->render('tournament/show.html.twig', [
             'tournament' => $tournament,
+            'availableSpots' => $availableSpots,
+            'completionPercentage' => $completionPercentage,
         ]);
     }
 
@@ -73,6 +81,7 @@ class TournamentController extends AbstractController
             $team = $tournament->getTeams()->first();
             $tournament->addTeam($team);
             $tournamentRepository->save($tournament, true);
+            $this->addFlash('success', 'Votre équipe a bien été inscrite.');
             return $this->redirectToRoute('app_tournament_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('tournament/register.html.twig', [
