@@ -34,6 +34,12 @@ class Tournament
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $details = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     #[ORM\ManyToOne(inversedBy: 'tournaments')]
     private ?Club $club = null;
 
@@ -122,6 +128,30 @@ class Tournament
         return $this;
     }
 
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
     public function getClub(): ?Club
     {
         return $this->club;
@@ -146,6 +176,8 @@ class Tournament
     {
         if (!$this->teams->contains($team)) {
             $this->teams->add($team);
+            $team->addTournament($this);
+            $this->updatedAt = new \DateTimeImmutable('now');
         }
 
         return $this;
