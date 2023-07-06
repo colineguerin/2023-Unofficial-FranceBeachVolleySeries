@@ -47,3 +47,16 @@ a {
 .fbvs-hover-size:hover {
     transform: scale(1.05);
 }
+
+#logo-facebook:hover {
+    color: rgb(59, 89, 152);
+}
+
+#logo-twitter:hover {
+    color: rgb(0, 172, 237);
+}
+
+#logo-instagram:hover {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+    border-radius: 35px;
+}
