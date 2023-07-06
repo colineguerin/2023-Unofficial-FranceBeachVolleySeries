@@ -43,6 +43,8 @@ class TournamentCrudController extends AbstractCrudController
         yield IntegerField::new('maxTeam', 'Nombre d\'équipes maximum');
         yield AssociationField::new('teams', 'Equipes inscrites');
         yield TextEditorField::new('details', 'Détails');
+        yield DateTimeField::new('createdAt')->hideOnForm();
+        yield DateTimeField::new('updatedAt')->hideOnForm();
     }
 
     public function duplicateTournament(
