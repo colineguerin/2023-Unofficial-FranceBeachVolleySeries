@@ -114,6 +114,9 @@ class Team
         if (!$this->tournaments->contains($tournament)) {
             $this->tournaments->add($tournament);
             $tournament->addTeam($this);
+            $now = new \DateTimeImmutable('now');
+            $this->updatedAt = $now;
+            $tournament->setUpdatedAt($now);
         }
 
         return $this;

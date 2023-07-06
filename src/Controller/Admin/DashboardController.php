@@ -7,6 +7,7 @@ use App\Entity\Club;
 use App\Entity\User;
 use App\Entity\Team;
 use App\Entity\Tournament;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -26,6 +27,11 @@ class DashboardController extends AbstractDashboardController
     {
         return Dashboard::new()
             ->setTitle('France Beach Volley Series');
+    }
+
+    public function configureAssets(): Assets
+    {
+        return Assets::new()->addCssFile('assets/style/easyadmin.css');
     }
 
     public function configureMenuItems(): iterable

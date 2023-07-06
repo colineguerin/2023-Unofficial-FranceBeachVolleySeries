@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Tournament;
 use App\Form\RegisterTournamentType;
 use App\Form\SearchTournamentType;
+use App\Repository\TeamRepository;
 use App\Repository\TournamentRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -84,6 +85,7 @@ class TournamentController extends AbstractController
             $this->addFlash('success', 'Votre équipe a bien été inscrite.');
             return $this->redirectToRoute('app_tournament_index', [], Response::HTTP_SEE_OTHER);
         }
+
         return $this->render('tournament/register.html.twig', [
             'form' => $form,
             'tournament' => $tournament,

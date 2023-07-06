@@ -1,0 +1,17 @@
+@import "bootstrap.min.css";
+/*
+* {
+    --fbvs-bg-color-light: #F5F5CE;
+    --sidebar-bg: var(--bs-primary);
+    --sidebar-menu-icon-color: var(--bs-nav-tabs-link-hover-border-color);
+    --sidebar-menu-active-item-color: var(--bs-nav-tabs-link-hover-border-color);
+    --sidebar-menu-color: var(--bs-nav-tabs-link-hover-border-color);
+    --link-color: var(--bs-primary);
+    --sidebar-menu-active-item-bg: transparent;
+}
+*/
+a {
+    text-decoration: none;
+}
+
+
