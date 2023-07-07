@@ -32,6 +32,13 @@ class TournamentCrudController extends AbstractCrudController
             ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('Tournoi')
+            ->setEntityLabelInPlural('Tournois');
+    }
+
     public function configureFields(string $pageName): iterable
     {
         yield IdField::new('id')->hideOnForm();
@@ -40,11 +47,11 @@ class TournamentCrudController extends AbstractCrudController
         yield TextField::new('location', 'Lieu')->setRequired(true);
         yield DateTimeField::new('tournamentDate', 'Date et heure')->setRequired(true);
         yield AssociationField::new('club', 'Club organisateur')->setRequired(true);
-        yield IntegerField::new('maxTeam', 'Nombre d\'équipes maximum');
+        yield IntegerField::new('maxTeam', 'Nombre d\'équipes maximum')->hideOnIndex();
         yield AssociationField::new('teams', 'Equipes inscrites');
         yield TextEditorField::new('details', 'Détails');
-        yield DateTimeField::new('createdAt')->hideOnForm();
-        yield DateTimeField::new('updatedAt')->hideOnForm();
+        yield DateTimeField::new('createdAt', 'Créé le')->onlyOnDetail();
+        yield DateTimeField::new('updatedAt', 'Mis à jour le')->onlyOnDetail();
     }
 
     public function duplicateTournament(

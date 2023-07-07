@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Club;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\{Action, Actions, Crud};
@@ -25,6 +26,8 @@ class ClubCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
+            DateTimeField::new('createdAt', 'Créé le')->hideOnForm(),
+            DateTimeField::new('updatedAt', 'Mis à jour le')->hideOnForm(),
         ];
     }
 

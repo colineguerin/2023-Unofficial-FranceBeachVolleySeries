@@ -3,6 +3,7 @@
 namespace App\EventSubscriber;
 
 use App\Entity\Article;
+use App\Entity\Club;
 use App\Entity\Team;
 use App\Entity\Tournament;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
@@ -22,7 +23,7 @@ class AdminSubscriber implements EventSubscriberInterface
     public function setCreatedAt(BeforeEntityPersistedEvent $event)
     {
         $entityInstance = $event->getEntityInstance();
-        if (!$entityInstance instanceof Article && !$entityInstance instanceof Team && !$entityInstance instanceof Tournament) return;
+        if (!$entityInstance instanceof Article && !$entityInstance instanceof Team && !$entityInstance instanceof Tournament && !$entityInstance instanceof Club) return;
 
         $entityInstance->setCreatedAt(new \DateTimeImmutable());
     }
@@ -30,7 +31,7 @@ class AdminSubscriber implements EventSubscriberInterface
     public function setUpdatedAt(BeforeEntityUpdatedEvent $event)
     {
         $entityInstance = $event->getEntityInstance();
-        if (!$entityInstance instanceof Article && !$entityInstance instanceof Team && !$entityInstance instanceof Tournament) return;
+        if (!$entityInstance instanceof Article && !$entityInstance instanceof Team && !$entityInstance instanceof Tournament && !$entityInstance instanceof Club) return;
 
         $entityInstance->setUpdatedAt(new \DateTimeImmutable());
     }
