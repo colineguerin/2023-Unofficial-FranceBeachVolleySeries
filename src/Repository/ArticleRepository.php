@@ -39,6 +39,17 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByTitle(string $search)
+    {
+        $queryBuilder = $this->createQueryBuilder('a')
+            ->where('a.title LIKE :search')
+            ->setParameter('search', '%' . $search . '%')
+            ->orderBy('a.createdAt', 'DESC')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */
