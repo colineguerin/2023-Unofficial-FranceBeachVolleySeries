@@ -1,7 +1,7 @@
 @import "bootstrap.min.css";
-/*
+
 * {
-    --fbvs-bg-color-light: #F5F5CE;
+    --fbvs-bg-color-light: #f5e7bb;
     --sidebar-bg: var(--bs-primary);
     --sidebar-menu-icon-color: var(--bs-nav-tabs-link-hover-border-color);
     --sidebar-menu-active-item-color: var(--bs-nav-tabs-link-hover-border-color);
@@ -9,9 +9,80 @@
     --link-color: var(--bs-primary);
     --sidebar-menu-active-item-bg: transparent;
 }
-*/
+
 a {
     text-decoration: none;
+    color: var(--bs-primary);
 }
+
+.menu-item, .menu-header, .menu-item-label, #main-menu .menu .menu-icon {
+    color: #dbd6cc;
+}
+
+.menu-item, .menu-header, .menu-item-label {
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 22px;
+}
+
+.menu-item-label:active, .menu-item:active, .menu-header:active, #main-menu .menu .menu-icon:active, .menu-item-label:hover, .menu-item:hover, .menu-header:hover, #main-menu .menu .menu-icon:hover {
+    color: #ffffff;
+}
+
+.content-header, body {
+    background-color: var(--fbvs-bg-color-light);
+}
+
+.content-top, .content-body {
+    background-color: #ffffff;
+}
+
+.page-item.active .page-link, .page-item.active .page-link:hover {
+    background: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.btn-primary, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):active:focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):focus, .btn-primary:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):hover {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: var(--bs-btn-hover-color);
+}
+
+.btn:not(:disabled):not(.disabled):not(.btn-link):not(.btn-danger):hover {
+    box-shadow: none;
+    color: var(--bs-light);
+}
+
+
+.btn-secondary:hover, .btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled):active:focus, .btn-secondary:not(:disabled):not(.disabled):focus {
+    background-color: #FFFFFF;
+    color: var(--bs-primary);
+}
+
+.btn:not(:disabled):not(.disabled):not(.btn-link):active, .btn:not(:disabled):not(.disabled):not(.btn-link):active:focus, .btn:not(:disabled):not(.disabled):not(.btn-link):focus {
+    border: 0;
+    box-shadow: none;
+    color: var(--button-active-color);
+}
+
+.btn-secondary {
+    --bs-btn-color: var(--bs-primary);
+    --bs-btn-bg: #FFFFFF;
+    --bs-btn-border-color: #FFFFFF;
+    --bs-btn-hover-color: #FFFFFF;
+    --bs-btn-hover-bg: var(--bs-light);
+    --bs-btn-hover-border-color: var(--bs-primary);
+    --bs-btn-focus-shadow-rgb: none;
+    --bs-btn-active-color: var(--bs-primary);
+    --bs-btn-active-bg: var(--bs-light);
+    --bs-btn-active-border-color: var(--bs-primary);
+    --bs-btn-active-shadow: none;
+    --bs-btn-disabled-color: var(--bs-primary);
+    --bs-btn-disabled-bg: #FFFFFF;
+    --bs-btn-disabled-border-color: var(--bs-primary);
+}
+
+
 
 
