@@ -20,13 +20,14 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        return $this->render('admin/home.html.twig');
+        return $this->render('bundles/EasyAdminBundle/home.html.twig');
     }
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('France Beach Volley Series');
+            ->setTitle('France Beach Volley Series')
+            ->setTranslationDomain('fr');
     }
 
     public function configureAssets(): Assets
@@ -45,9 +46,9 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Ajouter un club', 'fas fa-plus', Club::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Afficher les clubs', 'fas fa-eye', Club::class)
         ]);
-        yield MenuItem::subMenu('Joueurs', 'fas fa-user')->setSubItems([
-            MenuItem::linkToCrud('Ajouter un joueur', 'fas fa-plus', User::class)->setAction(Crud::PAGE_NEW),
-            MenuItem::linkToCrud('Afficher les joueurs', 'fas fa-eye', User::class)
+        yield MenuItem::subMenu('Licenciés', 'fas fa-user')->setSubItems([
+            MenuItem::linkToCrud('Ajouter un licencié', 'fas fa-plus', User::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Afficher les licenciés', 'fas fa-eye', User::class)
         ]);
         yield MenuItem::subMenu('Equipes', 'fas fa-user-group')->setSubItems([
             MenuItem::linkToCrud('Ajouter une équipe', 'fas fa-plus', Team::class)->setAction(Crud::PAGE_NEW),

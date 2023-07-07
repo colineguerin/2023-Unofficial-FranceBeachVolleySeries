@@ -37,6 +37,14 @@ class UserCrudController extends AbstractCrudController
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('Licencié')
+            ->setEntityLabelInPlural('Licenciés');
+    }
+
     public function configureFields(string $pageName): iterable
     {
         $fields = [

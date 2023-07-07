@@ -1,0 +1,44 @@
+{% extends 'bundles/EasyAdminBundle/layout.html.twig' %}
+
+{% block main %}
+    <div class="card-header pt-3 bg-white">
+        <h4 class="text-primary fw-bold">Bienvenue dans le tableau d'administration !</h4>
+    </div>
+    <div class="card-body">
+        <p class="card-text">C'est ici que vous pouvez gérer l'administration du site France Beach Volley Series.
+            Voici les diverses actions que vous pouvez réaliser en tant qu'administrateur :</p>
+        <ul>
+            <li class="mb-2"><i class="fas fa-newspaper"></i><b> Articles :</b> pour écrire un nouvel article
+                d'actualité, modifier un article existant ou le supprimer. Les trois articles les plus récents
+                apparaîtront en une dans le bandeau sur la page d'accueil.
+            </li>
+            <li class="mb-2"><i class="fas fa-shield"></i><b> Clubs :</b> pour enregistrer un club nouvellement
+                référencé, modifier les informations d'un club existant ou le supprimer.
+            </li>
+            <li class="mb-2"><i class="fas fa-user"></i><b> Licenciés :</b> pour créer un compte à un nouveau licencié.
+                Vous devrez ensuite lui envoyer son mot de passe par email en lui précisant de le changer à sa première
+                connexion. Vous pouvez également modifier ses informations personnelles (changement d'adresse, par
+                exemple) et supprimer son compte (en cas de non-renouvellement de licence ou de mauvais comportement).
+            </li>
+            <li class="mb-2"><i class="fas fa-user-group"></i><b> Equipes :</b> pour créer une nouvelle équipe sur
+                demande des joueurs, en réactiver ou en supprimer une.
+            </li>
+            <li class="mb-2"><i class="fas fa-volleyball"></i><b> Tournois :</b> pour entrer un nouveau tournoi et gérer
+                les inscriptions, le modifier et le supprimer si besoin. Vous pouvez également dupliquer un tournoi
+                existant (très utile pour les doubles genres).
+            </li>
+            <li class="mb-2"><i class="fas fa-trophy"></i><b> Résultats :</b> pour entrer les résultats des tournois
+                pour chaque équipe et mettre à jour le classement national.
+            </li>
+        </ul>
+    </div>
+    <div class="card-footer alert alert-warning m-1 rounded-2" role="alert">
+        <div>
+            <p class="mb-0"><i class="fas fa-warning pe-2"></i><b>Attention !</b></p>
+            <p class="mb-0">Ces changements affecteront la base de données de France Beach Volley Series et
+                s'afficheront sur le site pour tous les utilisateurs. Vérifiez bien
+                que vous avez les droits requis avant de les effectuer.</p>
+        </div>
+    </div>
+
+{% endblock %}

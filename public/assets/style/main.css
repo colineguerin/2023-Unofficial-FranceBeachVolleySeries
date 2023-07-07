@@ -1,5 +1,5 @@
 * {
-    --fbvs-bg-color-light: #F5F5CE;
+    --fbvs-bg-color-light: #f5e7bb;
     box-sizing: border-box;
 }
 
@@ -8,10 +8,6 @@ body {
     min-height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
-}
-
-.fbvs-body-frame {
-    width: 90%;
     margin: 0 auto;
 }
 
@@ -23,11 +19,23 @@ a {
     width: 60px;
 }
 
-.fbvs-carousel-img {
-    max-height: 700px;
+.fbvs-banner-img {
+    max-height: 800px;
     object-fit: cover;
     object-position: top;
-    filter: brightness(90%);
+    position: relative;
+    display: inline-block;
+}
+
+.fbvs-banner-img::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-image: linear-gradient(rgba(255, 255, 255, 0), #f5e7bb);
+    pointer-events: none;
 }
 
 .fbvs-card-img {

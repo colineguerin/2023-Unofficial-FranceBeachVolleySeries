@@ -14,6 +14,7 @@ class ArticleCrudController extends AbstractCrudController
 {
     public CONST ARTICLES_BASE_PATH = 'assets/images';
     public CONST ARTICLES_UPLOAD_DIR = 'public/assets/images';
+
     public static function getEntityFqcn(): string
     {
         return Article::class;
@@ -24,6 +25,14 @@ class ArticleCrudController extends AbstractCrudController
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('Article')
+            ->setEntityLabelInPlural('Articles');
+    }
+
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -35,8 +44,8 @@ class ArticleCrudController extends AbstractCrudController
                 ->setUploadDir(self::ARTICLES_UPLOAD_DIR)
                 ->setUploadedFileNamePattern('[contenthash].[extension]'),
             TextEditorField::new('content', 'Contenu de l\'article'),
-            DateTimeField::new('createdAt')->hideOnForm(),
-            DateTimeField::new('updatedAt')->hideOnForm(),
+            DateTimeField::new('createdAt', 'Créé le')->hideOnForm(),
+            DateTimeField::new('updatedAt', 'Mis à jour le')->hideOnForm(),
         ];
     }
 }

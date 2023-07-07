@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <section>
+    <section class="mt-4">
         {% if app.user %}
             <div class="container pb-5">
                 {% for category, messages in app.flashes %}
@@ -17,14 +17,6 @@
                         </div>
                     {% endfor %}
                 {% endfor %}
-                <div class="row">
-                    <div class="col">
-                        <div class="card mb-4">
-                            <h1 class="text-primary text-center pt-3 pb-2 fs-3 fw-bold">Bienvenue sur votre
-                                profil, {{ app.user.firstname }} !</h1>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="row">
                     <div class="col-lg-4">
@@ -40,12 +32,8 @@
                                     <p class="text-muted mb-4">{{ app.user.club }}</p>
                                 {% endif %}
                                 <div class="d-flex justify-content-center mb-2">
-                                    <a href="{{ path('app_user_edit', {'id': app.user.id}) }}">
-                                        <button type="button" class="btn btn-primary">Modifier</button>
-                                    </a>
-                                    <a href="{{ path('app_user_edit', {'id': app.user.id}) }}">
-                                        <button type="button" class="btn btn-outline-danger ms-1">Supprimer</button>
-                                    </a>
+                                    <span class="badge text-bg-danger fs-6 p-2">
+                                        <i class="fa-solid fa-star pe-2"></i>10e au classement national</span>
                                 </div>
                             </div>
                         </div>
@@ -95,6 +83,13 @@
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="row">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-between py-1">
+                                            <h1 class="fs-5 fw-bold text-primary">Bienvenue {{ app.user.firstname }} !</h1>
+                                            <a href="/contact" class="text-secondary mb-0"><i class="fa-solid fa-pencil pe-2"></i>Modifier</a>
+                                        </div>
+                                    </div>
+                                    <hr>
                                     <div class="col-sm-3">
                                         <p class="mb-0 text-primary fw-bold"><i
                                                     class="fa-solid fa-pen-to-square pe-2"></i>Nom complet</p>

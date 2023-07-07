@@ -23,14 +23,21 @@ class TeamCrudController extends AbstractCrudController
             ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('Equipe')
+            ->setEntityLabelInPlural('Equipes');
+    }
+
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id')->hideOnForm(),
-            DateTimeField::new('createdAt')->hideOnForm(),
-            DateTimeField::new('updatedAt')->hideOnForm(),
+            DateTimeField::new('createdAt', 'Créé le')->hideOnForm(),
+            DateTimeField::new('updatedAt', 'Mis à jour le')->hideOnForm(),
             AssociationField::new('players', 'Joueurs'),
-            BooleanField::new('isActive'),
+            BooleanField::new('isActive', 'Active'),
         ];
     }
 }
