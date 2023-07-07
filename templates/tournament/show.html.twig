@@ -82,6 +82,15 @@
                                         <div class="panel-body">
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="tab-1">
+                                                    <div class="p-3">
+                                                        <h6>Equipes déjà inscrites :</h6>
+                                                        <ul>
+                                                            {% for team in teams %}
+                                                                <li>{{ team.players[0].firstname }} {{ team.players[0].lastname }} / {{ team.players[1].firstname }} {{ team.players[1].lastname }}</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+
 
                                                 </div>
                                                 <div class="tab-pane" id="tab-2">

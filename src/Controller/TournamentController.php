@@ -68,6 +68,7 @@ class TournamentController extends AbstractController
             'tournament' => $tournament,
             'availableSpots' => $availableSpots,
             'completionPercentage' => $completionPercentage,
+            'teams' => $teams,
         ]);
     }
 
