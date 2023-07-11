@@ -50,6 +50,15 @@ class ArticleRepository extends ServiceEntityRepository
         return $queryBuilder->getResult();
     }
 
+    public function findLatest(int $number): array
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.id', 'DESC')
+            ->setMaxResults($number)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */

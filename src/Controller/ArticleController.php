@@ -38,6 +38,8 @@ class ArticleController extends AbstractController
     {
         $article = $articleRepository->findOneBy(['id' => $id]);
 
+        $latestArticles = $articleRepository->findLatest(3);
+
         if (!$article) {
             throw $this->createNotFoundException(
                 'No article with id : ' . $id . ' found in article\'s table.'
@@ -45,6 +47,7 @@ class ArticleController extends AbstractController
         }
         return $this->render('article/show.html.twig', [
             'article' => $article,
+            'latestArticles' => $latestArticles,
         ]);
     }
 }
