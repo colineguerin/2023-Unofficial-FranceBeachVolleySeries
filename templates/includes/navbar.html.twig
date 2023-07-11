@@ -23,11 +23,11 @@
                         <a href="/admin" class="nav-link">Dashboard</a>
                     </li>
                 {% endif %}
-                <li>
+                <li class="px-3">
                     {% if app.user %}
-                        <button class="btn btn-light"><a href="{{ path('app_logout') }}" class="text-decoration-none">Se déconnecter</a></button>
+                        <a href="{{ path('app_logout') }}" class="text-decoration-none text-primary"><button class="btn btn-danger">Se déconnecter</button></a>
                     {% else %}
-                        <button class="btn btn-light"><a href="{{ path('app_login') }}" class="text-decoration-none">Se connecter</a></button>
+                        <a href="{{ path('app_login') }}" class="text-decoration-none text-primary"><button class="btn btn-success">Se connecter</button></a>
                     {% endif %}
                 </li>
             </ul>
