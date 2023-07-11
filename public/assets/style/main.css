@@ -57,14 +57,19 @@ a {
 }
 
 #logo-facebook:hover {
-    color: rgb(59, 89, 152);
+    background: #0c4a6e;
+    padding: 5px;
+    border-radius: 35%;
 }
 
 #logo-twitter:hover {
-    color: rgb(0, 172, 237);
+    background: rgb(0, 172, 237);
+    padding: 3px;
+    border-radius: 35%;
 }
 
 #logo-instagram:hover {
     background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
     border-radius: 35px;
+    margin: 3px;
 }
