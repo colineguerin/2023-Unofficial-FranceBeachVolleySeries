@@ -22,7 +22,7 @@
                     <div class="col-lg-4">
 
                         <!-- Top-left section -->
-                        <div class="card mb-4">
+                        <div class="card mb-4 shadow">
                             <div class="card-body text-center">
                                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
                                      alt="avatar"
@@ -40,7 +40,7 @@
                         <!-- End of section -->
 
                         <!-- Bottom-left section -->
-                        <div class="card mb-4 mb-lg-0">
+                        <div class="card mb-4 mb-lg-0 shadow">
                             <div class="card-body">
                                 <p class="mb-4 fw-bold"><i class="fas fa-trophy pe-2"></i>Mes résultats</p>
                                 <table class="charts-css line show-primary-axis show-data-axes show-labels"
@@ -80,13 +80,13 @@
 
                     <!-- Top-right section -->
                     <div class="col-lg-8">
-                        <div class="card mb-4">
+                        <div class="card mb-4 shadow">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="row">
                                         <div class="d-flex justify-content-between py-1">
-                                            <h1 class="fs-5 fw-bold text-primary">Bienvenue {{ app.user.firstname }} !</h1>
-                                            <a href="/contact" class="text-secondary mb-0"><i class="fa-solid fa-pencil pe-2"></i>Modifier</a>
+                                            <h1 class="fs-5 text-primary">Bienvenue {{ app.user.firstname }} !</h1>
+                                            <a href="{{ path('contact') }}" class="link-secondary link-underline-opacity-0"><i class="fa-solid fa-pencil pe-2"></i>Modifier</a>
                                         </div>
                                     </div>
                                     <hr>
@@ -149,7 +149,7 @@
                         <div class="row">
                             <!-- Bottom-middle section -->
                             <div class="col-md-6">
-                                <div class="card mb-4 mb-md-0">
+                                <div class="card mb-4 mb-md-0 shadow">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between px-2">
                                             <p class="mb-4 fw-bold"><i class="fas fa-user-group pe-2"></i>Mes
