@@ -25,10 +25,14 @@
                 <div class="card bg-pattern shadow">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
-                            <i class="fa fa-venus text-danger h4 ml-3"></i>
-                            <h5 class="font-size-20 mt-0">Féminin</h5>
+                            <i class="fa fa-ranking-star text-danger h4 ml-3"></i>
+                            <h5 class="font-size-20 mt-0">Classement féminin</h5>
                         </div>
-                        <p class="text-muted mb-0">Podium féminin à compléter</p>
+                        <div class="ps-5">
+                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: goldenrod"></i><span class="fw-bold">1 - {{ womanPodium[0].firstname }} {{ womanPodium[0].lastname }}</span> ({{ womanPodium[0].point }} points)</p>
+                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: silver"></i><span class="fw-bold">2 - {{ womanPodium[1].firstname }} {{ womanPodium[1].lastname }}</span> ({{ womanPodium[1].point }} points)</p>
+                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: brown"></i><span class="fw-bold">3 - {{ womanPodium[2].firstname }} {{ womanPodium[2].lastname }}</span> ({{ womanPodium[2].point }} points)</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -36,10 +40,14 @@
                 <div class="card bg-pattern shadow">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
-                            <i class="fa fa-mars text-primary h4 ml-3"></i>
-                            <h5 class="font-size-20 mt-0">Masculin</h5>
+                            <i class="fa fa-ranking-star text-primary h4 ml-3"></i>
+                            <h5 class="font-size-20 mt-0">Classement masculin</h5>
                         </div>
-                        <p class="text-muted mb-0">Podium masculin à compléter</p>
+                        <div class="ps-5">
+                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: goldenrod"></i><span class="fw-bold">1 - {{ manPodium[0].firstname }} {{ manPodium[0].lastname }}</span> ({{ manPodium[0].point }} points)</p>
+                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: silver"></i><span class="fw-bold">2 - {{ manPodium[1].firstname }} {{ manPodium[1].lastname }}</span> ({{ manPodium[1].point }} points)</p>
+                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: brown"></i><span class="fw-bold">3 - {{ manPodium[2].firstname }} {{ manPodium[2].lastname }}</span> ({{ manPodium[2].point }} points)</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -49,17 +57,17 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <form method="post">
-                            {# {{ form_start(form) }} #}
+                            {{ form_start(form) }}
                             <div class="form-group m-2">
-                                <div class="input-group">
-                                    {# {{ form_row(form.search, {'attr': {'class': 'form-control', 'style': 'width: 530px', 'placeholder': 'Rechercher...', 'aria-describedby': 'project-search-addon'}}) }} #}
+                                <div class="input-group d-flex justify-content-center">
+                                    {{ form_row(form.search, {'attr': {'class': 'form-control', 'style': 'width: 745px;', 'placeholder': 'Rechercher un joueur...', 'aria-describedby': 'project-search-addon'}}) }}
                                     <div class="input-group-append mx-1">
                                         <button class="btn btn-primary" type="submit" id="project-search-addon"><i
                                                     class="fa fa-search search-icon font-12"></i></button>
                                     </div>
                                 </div>
                             </div>
-                            {# {{ form_end(form) }} #}
+                            {{ form_end(form) }}
                         </form>
                     </div>
                 </div>
@@ -85,22 +93,22 @@
                             <table class="table project-table table-centered table-nowrap table-hover">
                                 <thead>
                                 <tr>
+                                    <th scope="col">Place</th>
                                     <th scope="col">Joueur</th>
                                     <th scope="col">Club</th>
                                     <th scope="col">Points</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                {% set rank = 1 %}
                                 {% for player in players %}
                                     <tr>
+                                        <td>{{ rank }}</td>
                                         <td class="text-muted">{{ player.firstname }} {{ player.lastname }}</td>
                                         <td>{{ player.club.name }}</td>
-                                        {% set total = 0 %}
-                                        {% for result in player.results %}
-                                            {% set total = total + result.points %}
-                                        {% endfor %}
-                                        <td>{{ total }}</td>
+                                        <td>{{ player.point }}</td>
                                     </tr>
+                                    {% set rank = rank + 1 %}
                                 {% endfor %}
                                 </tbody>
                             </table>
@@ -125,6 +133,5 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
 
