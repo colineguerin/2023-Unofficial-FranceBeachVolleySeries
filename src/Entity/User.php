@@ -47,9 +47,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Team::class, mappedBy: 'players')]
     private Collection $teams;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Result::class)]
+    private Collection $results;
+
     public function __construct()
     {
         $this->teams = new ArrayCollection();
+        $this->results = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -212,5 +216,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString(): string
     {
         return $this->permitNumber . ' - ' . $this->firstname . ' ' . $this->lastname;
+    }
+
+    /**
+     * @return Collection<int, Result>
+     */
+    public function getResults(): Collection
+    {
+        return $this->results;
+    }
+
+    public function addResult(Result $result): static
+    {
+        if (!$this->results->contains($result)) {
+            $this->results->add($result);
+            $result->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResult(Result $result): static
+    {
+        if ($this->results->removeElement($result)) {
+            // set the owning side to null (unless already changed)
+            if ($result->getUser() === $this) {
+                $result->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
