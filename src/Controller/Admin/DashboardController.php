@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Article;
 use App\Entity\Club;
+use App\Entity\Result;
 use App\Entity\User;
 use App\Entity\Team;
 use App\Entity\Tournament;
@@ -59,6 +60,8 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Afficher les tournois', 'fas fa-eye', Tournament::class)
         ]);
         yield MenuItem::subMenu('Results', 'fas fa-trophy')->setSubItems([
+            MenuItem::linkToCrud('Ajouter un résultat', 'fas fa-plus', Result::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Afficher les résultats', 'fas fa-eye', Result::class)
         ]);
         yield MenuItem::linkToRoute('Quitter le dashboard', 'fas fa-right-from-bracket', 'app_index');
     }
