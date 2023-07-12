@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container mt-4">
+        {% for category, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="row">
+                    <div class="col">
+                        <div class="alert alert-{{ category }} w-25">
+                            <i class="fa-solid fa-circle-check pe-2"></i>
+                            {{ message }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        <div class="row">
+            <div class="col">
+                <h1 class="fs-3 mb-4"><i class="fas fa-trophy pe-3"></i>Classement national</h1>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-xl-6 col-md-6">
+                <div class="card bg-pattern shadow">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <i class="fa fa-venus text-danger h4 ml-3"></i>
+                            <h5 class="font-size-20 mt-0">Féminin</h5>
+                        </div>
+                        <p class="text-muted mb-0">Podium féminin à compléter</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-6">
+                <div class="card bg-pattern shadow">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <i class="fa fa-mars text-primary h4 ml-3"></i>
+                            <h5 class="font-size-20 mt-0">Masculin</h5>
+                        </div>
+                        <p class="text-muted mb-0">Podium masculin à compléter</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-xl-8 col-md-6">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <form method="post">
+                            {# {{ form_start(form) }} #}
+                            <div class="form-group m-2">
+                                <div class="input-group">
+                                    {# {{ form_row(form.search, {'attr': {'class': 'form-control', 'style': 'width: 530px', 'placeholder': 'Rechercher...', 'aria-describedby': 'project-search-addon'}}) }} #}
+                                    <div class="input-group-append mx-1">
+                                        <button class="btn btn-primary" type="submit" id="project-search-addon"><i
+                                                    class="fa fa-search search-icon font-12"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            {# {{ form_end(form) }} #}
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6">
+                <div class="card bg-pattern shadow">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="font-size-20 mt-0">Filtre par genre</h5>
+                            <i class="fa fa-th text-success h4 ml-3"></i>
+                        </div>
+                        <p class="text-muted mb-0">à remplir</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div class="table-responsive project-list">
+                            <table class="table project-table table-centered table-nowrap table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Joueur</th>
+                                    <th scope="col">Club</th>
+                                    <th scope="col">Points</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for player in players %}
+                                    <tr>
+                                        <td class="text-muted">{{ player.firstname }} {{ player.lastname }}</td>
+                                        <td>{{ player.club.name }}</td>
+                                        {% set total = 0 %}
+                                        {% for result in player.results %}
+                                            {% set total = total + result.points %}
+                                        {% endfor %}
+                                        <td>{{ total }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="pt-3">
+                            <ul class="pagination justify-content-center mb-0">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i
+                                                class="fa-solid fa-chevron-left"></i></a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#"><i class="fa-solid fa-chevron-right"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
