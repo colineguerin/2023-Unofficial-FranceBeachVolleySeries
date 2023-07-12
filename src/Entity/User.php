@@ -50,6 +50,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Result::class)]
     private Collection $results;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $point = null;
+
     public function __construct()
     {
         $this->teams = new ArrayCollection();
@@ -244,6 +247,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $result->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPoint(): ?int
+    {
+        return $this->point;
+    }
+
+    public function setPoint(?int $point): static
+    {
+        $this->point = $point;
 
         return $this;
     }
