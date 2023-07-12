@@ -17,7 +17,7 @@
                         <a class="nav-link" href="{{ path('app_tournament_index') }}">Tournois</a>
                     </li>
                     <li class="nav-item px-3">
-                        <a class="nav-link" href="#">Classement</a>
+                        <a class="nav-link" href="{{ path('app_result') }}">Classement</a>
                     </li>
                 {% endif %}
                 {% if is_granted("ROLE_ADMIN") %}
