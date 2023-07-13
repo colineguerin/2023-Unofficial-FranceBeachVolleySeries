@@ -20,6 +20,7 @@ class TournamentController extends AbstractController
     #[Route('/', name: 'app_tournament_index', methods: ['GET', 'POST'])]
     public function index(Request $request, TournamentRepository $tournamentRepository, PaginatorInterface $paginator): Response
     {
+        //search bar
         $form = $this->createForm(SearchTournamentType::class);
         $form->handleRequest($request);
 
@@ -40,10 +41,9 @@ class TournamentController extends AbstractController
             );
         }
 
+        //Get upcoming and past tournaments
         $allTournaments = $tournamentRepository->findAll();
-
         $currentDateTime = new DateTime();
-
         $pastTournaments = 0;
         $upcomingTournaments = 0;
 

@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\{Action, Actions, Crud};
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 
 class ArticleCrudController extends AbstractCrudController
 {
@@ -47,5 +48,13 @@ class ArticleCrudController extends AbstractCrudController
             DateTimeField::new('createdAt', 'Créé le')->hideOnForm(),
             DateTimeField::new('updatedAt', 'Mis à jour le')->hideOnForm(),
         ];
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('title')
+            ->add('subtitle')
+            ;
     }
 }

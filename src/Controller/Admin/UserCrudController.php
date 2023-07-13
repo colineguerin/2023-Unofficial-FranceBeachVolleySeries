@@ -61,7 +61,7 @@ class UserCrudController extends AbstractCrudController
             ArrayField::new('roles', 'Rôles'),
             AssociationField::new('club', 'Club'),
             EmailField::new('email', 'Adresse email'),
-            IntegerField::new('point'),
+            IntegerField::new('point')->hideOnForm(),
         ];
 
         $password = TextField::new('password')
