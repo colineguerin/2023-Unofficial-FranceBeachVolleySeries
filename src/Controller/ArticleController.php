@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\SearchArticleType;
 use App\Repository\ArticleRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,16 +13,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends AbstractController
 {
     #[Route('/', name: 'app_index', methods: ['GET', 'POST'])]
-    public function index(ArticleRepository $articleRepository, Request $request): Response
+    public function index(ArticleRepository $articleRepository, Request $request, PaginatorInterface $paginator): Response
     {
         $form = $this->createForm(SearchArticleType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $search = $form->getData()['search'];
-            $articles = $articleRepository->findByTitle($search);
+            $allArticles = $articleRepository->findByTitle($search);
+            $articles = $paginator->paginate(
+                $allArticles,
+                $request->query->getInt('page', 1),
+                6
+            );
         } else {
-            $articles = $articleRepository->findBy([], ['createdAt' => 'DESC']);
+            $allArticles = $articleRepository->findBy([], ['createdAt' => 'DESC']);
+            $articles = $paginator->paginate(
+                $allArticles,
+                $request->query->getInt('page', 1),
+                6
+            );
         }
 
         return $this->render(
