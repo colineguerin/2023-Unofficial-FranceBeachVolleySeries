@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\FilterUserType;
 use App\Form\SearchUserType;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -15,14 +16,12 @@ class ResultController extends AbstractController
     #[Route('/classement', name: 'app_result', methods: ['GET', 'POST'])]
     public function index(UserRepository $userRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        /* Update player total points */
+        // Update player total points
         $users = $userRepository->findAll();
-        foreach ($users as $user)
-        {
+        foreach ($users as $user) {
             $results = $user->getResults();
             $points = [];
-            foreach ($results as $result)
-            {
+            foreach ($results as $result) {
                 $points[] = $result->getPoints();
             }
 
@@ -31,36 +30,44 @@ class ResultController extends AbstractController
             $userRepository->save($user, true);
         }
 
-        /* Get first three players */
+        // Get first three players
         $womanPodium = $userRepository->findWomanPodium();
         $manPodium = $userRepository->findManPodium();
 
-        /* Search bar */
-        $form = $this->createForm(SearchUserType::class);
-        $form->handleRequest($request);
+        // Search bar
+        $searchForm = $this->createForm(SearchUserType::class);
+        $searchForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $search = $form->getData()['search'];
+        $filterForm = $this->createForm(FilterUserType::class);
+        $filterForm->handleRequest($request);
+
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $search = $searchForm->getData()['search'];
             $allPlayers = $userRepository->findByName($search);
-            $players = $paginator->paginate(
-                $allPlayers,
-                $request->query->getInt('page', 1),
-                10
-            );
+        } elseif ($filterForm->isSubmitted() && $filterForm->isValid()) {
+            $gender = $filterForm->getData()['gender'];
+            if ($gender) {
+                $allPlayers = $userRepository->findAllMenByRank();
+            } else {
+                $allPlayers = $userRepository->findAllWomenByRank();
+            }
         } else {
             $allPlayers = $userRepository->findBy([], ['point' => 'DESC']);
-            $players = $paginator->paginate(
-                $allPlayers,
-                $request->query->getInt('page', 1),
-                10
-            );
         }
+
+        // Pagination
+        $players = $paginator->paginate(
+            $allPlayers,
+            $request->query->getInt('page', 1),
+            10
+        );
 
         return $this->render('result/index.html.twig', [
             'players' => $players,
-            'form' => $form,
+            'searchForm' => $searchForm,
             'womanPodium' => $womanPodium,
-            'manPodium' => $manPodium
+            'manPodium' => $manPodium,
+            'filterForm' => $filterForm,
         ]);
     }
 }
