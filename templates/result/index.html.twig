@@ -17,7 +17,7 @@
         {% endfor %}
         <div class="row">
             <div class="col">
-                <h1 class="fs-3 mb-4"><i class="fas fa-trophy pe-3"></i>Classement national</h1>
+                <h1 class="fs-3 mb-4">Classement national</h1>
             </div>
         </div>
         <div class="row mb-4">
@@ -26,12 +26,18 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <i class="fa fa-ranking-star text-danger h4 ml-3"></i>
-                            <h5 class="font-size-20 mt-0">Classement féminin</h5>
+                            <h5 class="font-size-20 mt-0 text-danger fw-bold">Classement féminin</h5>
                         </div>
                         <div class="ps-5">
-                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: goldenrod"></i><span class="fw-bold">1 - {{ womanPodium[0].firstname }} {{ womanPodium[0].lastname }}</span> ({{ womanPodium[0].point }} points)</p>
-                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: silver"></i><span class="fw-bold">2 - {{ womanPodium[1].firstname }} {{ womanPodium[1].lastname }}</span> ({{ womanPodium[1].point }} points)</p>
-                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: brown"></i><span class="fw-bold">3 - {{ womanPodium[2].firstname }} {{ womanPodium[2].lastname }}</span> ({{ womanPodium[2].point }} points)</p>
+                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: goldenrod"></i><span
+                                        class="fw-bold">1 - {{ womanPodium[0].firstname }} {{ womanPodium[0].lastname }}</span>
+                                ({{ womanPodium[0].point }} points)</p>
+                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: silver"></i><span
+                                        class="fw-bold">2 - {{ womanPodium[1].firstname }} {{ womanPodium[1].lastname }}</span>
+                                ({{ womanPodium[1].point }} points)</p>
+                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: brown"></i><span
+                                        class="fw-bold">3 - {{ womanPodium[2].firstname }} {{ womanPodium[2].lastname }}</span>
+                                ({{ womanPodium[2].point }} points)</p>
                         </div>
                     </div>
                 </div>
@@ -40,13 +46,19 @@
                 <div class="card bg-pattern shadow">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
-                            <i class="fa fa-ranking-star text-primary h4 ml-3"></i>
-                            <h5 class="font-size-20 mt-0">Classement masculin</h5>
+                            <i class="fa fa-ranking-star text-success h4 ml-3"></i>
+                            <h5 class="font-size-20 mt-0 text-success fw-bold">Classement masculin</h5>
                         </div>
                         <div class="ps-5">
-                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: goldenrod"></i><span class="fw-bold">1 - {{ manPodium[0].firstname }} {{ manPodium[0].lastname }}</span> ({{ manPodium[0].point }} points)</p>
-                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: silver"></i><span class="fw-bold">2 - {{ manPodium[1].firstname }} {{ manPodium[1].lastname }}</span> ({{ manPodium[1].point }} points)</p>
-                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: brown"></i><span class="fw-bold">3 - {{ manPodium[2].firstname }} {{ manPodium[2].lastname }}</span> ({{ manPodium[2].point }} points)</p>
+                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: goldenrod"></i><span
+                                        class="fw-bold">1 - {{ manPodium[0].firstname }} {{ manPodium[0].lastname }}</span>
+                                ({{ manPodium[0].point }} points)</p>
+                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: silver"></i><span
+                                        class="fw-bold">2 - {{ manPodium[1].firstname }} {{ manPodium[1].lastname }}</span>
+                                ({{ manPodium[1].point }} points)</p>
+                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: brown"></i><span
+                                        class="fw-bold">3 - {{ manPodium[2].firstname }} {{ manPodium[2].lastname }}</span>
+                                ({{ manPodium[2].point }} points)</p>
                         </div>
                     </div>
                 </div>
@@ -55,31 +67,43 @@
         <div class="row mb-4">
             <div class="col-xl-8 col-md-6">
                 <div class="card shadow">
-                    <div class="card-body">
+                    <div class="card-body pb-1">
                         <form method="post">
-                            {{ form_start(form) }}
+                            {{ form_start(searchForm) }}
                             <div class="form-group m-2">
                                 <div class="input-group d-flex justify-content-center">
-                                    {{ form_row(form.search, {'attr': {'class': 'form-control', 'style': 'width: 745px;', 'placeholder': 'Rechercher un joueur...', 'aria-describedby': 'project-search-addon'}}) }}
+                                    {{ form_row(searchForm.search, {'attr': {'style': 'width: 745px;', 'placeholder': 'Rechercher un joueur...', 'aria-describedby': 'project-search-addon'}}) }}
                                     <div class="input-group-append mx-1">
                                         <button class="btn btn-primary" type="submit" id="project-search-addon"><i
                                                     class="fa fa-search search-icon font-12"></i></button>
                                     </div>
                                 </div>
                             </div>
-                            {{ form_end(form) }}
+                            {{ form_end(searchForm) }}
                         </form>
                     </div>
                 </div>
             </div>
             <div class="col-xl-4 col-md-6">
                 <div class="card bg-pattern shadow">
-                    <div class="card-body">
+                    <div class="card-body pb-1">
                         <div class="d-flex justify-content-between">
-                            <h5 class="font-size-20 mt-0">Filtre par genre</h5>
-                            <i class="fa fa-th text-success h4 ml-3"></i>
+                            <h5 class="font-size-20 mt-0">Filtrer par genre</h5>
+                            <i class="fa fa-venus-mars text-primary h4 ml-3"></i>
                         </div>
-                        <p class="text-muted mb-0">à remplir</p>
+                        <div class="">
+                            <form method="post" class="d-flex justify-content-center">
+                                {{ form_start(filterForm) }}
+                                <div class="d-flex w-100">
+                                    {{ form_row(filterForm.gender, {'attr': {'class': 'd-flex justify-content-between', 'style': 'width: 200px;'}}) }}
+                                    <div class="input-group-append d-flex justify-content-center w-100">
+                                        <button class="btn btn-primary" style="height: 30px;" type="submit"><i
+                                                    class="fa-solid fa-check text-white"></i></button>
+                                    </div>
+                                </div>
+                                {{ form_end(filterForm) }}
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
