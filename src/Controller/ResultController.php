@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\SearchUserType;
 use App\Repository\UserRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ResultController extends AbstractController
 {
     #[Route('/classement', name: 'app_result', methods: ['GET', 'POST'])]
-    public function index(UserRepository $userRepository, Request $request): Response
+    public function index(UserRepository $userRepository, Request $request, PaginatorInterface $paginator): Response
     {
         /* Update player total points */
         $users = $userRepository->findAll();
@@ -40,9 +41,19 @@ class ResultController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $search = $form->getData()['search'];
-            $players = $userRepository->findByName($search);
+            $allPlayers = $userRepository->findByName($search);
+            $players = $paginator->paginate(
+                $allPlayers,
+                $request->query->getInt('page', 1),
+                10
+            );
         } else {
-            $players = $userRepository->findBy([], ['point' => 'DESC']);
+            $allPlayers = $userRepository->findBy([], ['point' => 'DESC']);
+            $players = $paginator->paginate(
+                $allPlayers,
+                $request->query->getInt('page', 1),
+                10
+            );
         }
 
         return $this->render('result/index.html.twig', [
