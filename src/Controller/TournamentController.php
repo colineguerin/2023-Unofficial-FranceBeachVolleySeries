@@ -8,6 +8,7 @@ use App\Form\SearchTournamentType;
 use App\Repository\TeamRepository;
 use App\Repository\TournamentRepository;
 use DateTime;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,16 +18,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class TournamentController extends AbstractController
 {
     #[Route('/', name: 'app_tournament_index', methods: ['GET', 'POST'])]
-    public function index(Request $request, TournamentRepository $tournamentRepository): Response
+    public function index(Request $request, TournamentRepository $tournamentRepository, PaginatorInterface $paginator): Response
     {
         $form = $this->createForm(SearchTournamentType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $search = $form->getData()['search'];
-            $tournaments = $tournamentRepository->findByNameTypeOrLocation($search);
+            $allTournaments = $tournamentRepository->findByNameTypeOrLocation($search);
+            $tournaments = $paginator->paginate(
+                $allTournaments,
+                $request->query->getInt('page', 1),
+                10
+            );
         } else {
-            $tournaments = $tournamentRepository->findBy([], ['tournamentDate' => 'DESC']);
+            $allTournaments = $tournamentRepository->findBy([], ['tournamentDate' => 'DESC']);
+            $tournaments = $paginator->paginate(
+                $allTournaments,
+                $request->query->getInt('page', 1),
+                10
+            );
         }
 
         $allTournaments = $tournamentRepository->findAll();
