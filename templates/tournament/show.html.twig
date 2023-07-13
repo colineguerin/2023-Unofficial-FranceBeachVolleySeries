@@ -5,14 +5,14 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1 class="fw-bold fs-3 my-4">Tournoi : {{ tournament.name }}</h1>
+                <h1 class="fs-3 my-4"><i class="fas fa-volleyball pe-3"></i>Tournoi : <span class="fw-normal">{{ tournament.name }}</span></h1>
             </div>
         </div>
         <div class="row">
             <div class="col-md-9">
                 <div class="wrapper wrapper-content animated fadeInUp">
                     <div class="ibox">
-                        <div class="ibox-content card p-5">
+                        <div class="ibox-content card p-5 shadow">
 
                             <div class="row">
                                 <div class="col-lg-5">
@@ -82,6 +82,15 @@
                                         <div class="panel-body">
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="tab-1">
+                                                    <div class="p-3">
+                                                        <h6>Equipes déjà inscrites :</h6>
+                                                        <ul>
+                                                            {% for team in teams %}
+                                                                <li>{{ team.players[0].firstname }} {{ team.players[0].lastname }} / {{ team.players[1].firstname }} {{ team.players[1].lastname }}</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+
 
                                                 </div>
                                                 <div class="tab-pane" id="tab-2">

@@ -11,6 +11,13 @@ body {
     margin: 0 auto;
 }
 
+h1 {
+    font-family: Roboto, sans-serif;
+    color: var(--bs-primary);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
 a {
     color: var(--bs-primary);
 }
@@ -57,14 +64,19 @@ a {
 }
 
 #logo-facebook:hover {
-    color: rgb(59, 89, 152);
+    background: #0c4a6e;
+    padding: 5px 10px;
+    border-radius: 20%;
 }
 
 #logo-twitter:hover {
-    color: rgb(0, 172, 237);
+    background: rgb(0, 172, 237);
+    padding: 7px;
+    border-radius: 35%;
 }
 
 #logo-instagram:hover {
     background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
     border-radius: 35px;
+    margin: 5px;
 }

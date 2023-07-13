@@ -30,10 +30,14 @@ class Team
     #[ORM\ManyToMany(targetEntity: Tournament::class, mappedBy: 'teams')]
     private Collection $tournaments;
 
+    #[ORM\OneToMany(mappedBy: 'team', targetEntity: Result::class)]
+    private Collection $results;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
         $this->tournaments = new ArrayCollection();
+        $this->results = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,5 +140,35 @@ class Team
         $secondPlayerName = $this->players[1]->getFirstname() . ' ' . $this->players[1]->getLastname();
 
         return $firstPlayerName . ' / ' . $secondPlayerName;
+    }
+
+    /**
+     * @return Collection<int, Result>
+     */
+    public function getResults(): Collection
+    {
+        return $this->results;
+    }
+
+    public function addResult(Result $result): static
+    {
+        if (!$this->results->contains($result)) {
+            $this->results->add($result);
+            $result->setTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResult(Result $result): static
+    {
+        if ($this->results->removeElement($result)) {
+            // set the owning side to null (unless already changed)
+            if ($result->getTeam() === $this) {
+                $result->setTeam(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -34,6 +34,7 @@ class UserController extends AbstractController
         }
 
         $teams = $user->getTeams();
+        $results = $user->getResults();
 
         $currentDate = new \DateTime();
 
@@ -41,6 +42,7 @@ class UserController extends AbstractController
             'user' => $user,
             'teams' => $teams,
             'now' => $currentDate,
+            'results' => $results
         ]);
     }
 

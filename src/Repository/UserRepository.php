@@ -56,6 +56,38 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->save($user, true);
     }
 
+    public function findByName(string $search)
+    {
+        $queryBuilder = $this->createQueryBuilder('u')
+            ->where('u.firstname LIKE :search')
+            ->orWhere('u.lastname LIKE :search')
+            ->setParameter('search', '%' . $search . '%')
+            ->orderBy('u.lastname', 'ASC')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
+    public function findWomanPodium()
+    {
+        return $this->createQueryBuilder('u')
+            ->where("u.gender = 'false'")
+            ->orderBy('u.point', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findManPodium()
+    {
+        return $this->createQueryBuilder('u')
+            ->where("u.gender = 'true'")
+            ->orderBy('u.point', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
