@@ -20,9 +20,9 @@
                 <h1 class="fs-3 mb-4">Classement national</h1>
             </div>
         </div>
-        <div class="row mb-4">
+        <div class="row">
             <div class="col-xl-6 col-md-6">
-                <div class="card bg-pattern shadow">
+                <div class="card bg-pattern shadow mb-4">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <i class="fa fa-ranking-star text-danger h4 ml-3"></i>
@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="col-xl-6 col-md-6">
-                <div class="card bg-pattern shadow">
+                <div class="card bg-pattern shadow mb-4">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <i class="fa fa-ranking-star text-success h4 ml-3"></i>
@@ -64,16 +64,39 @@
                 </div>
             </div>
         </div>
-        <div class="row mb-4">
-            <div class="col-xl-8 col-md-6">
-                <div class="card shadow">
+        <div class="row">
+            <div class="col-xl-4 col-md-6">
+                <div class="card bg-pattern shadow mb-4">
                     <div class="card-body pb-1">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="mt-0">Filtrer par genre</h5>
+                            <i class="fa fa-venus-mars text-primary h4 ml-3"></i>
+                        </div>
+                        <div>
+                            <form method="post" class="d-flex">
+                                {{ form_start(filterForm) }}
+                                <div class="d-flex pt-1">
+                                    {{ form_row(filterForm.gender, {'attr': {'class': 'd-flex justify-content-around', 'style': 'width: 250px;'}}) }}
+                                </div>
+                                <div class="input-group-append ms-3">
+                                    <button class="btn btn-primary" type="submit"><i
+                                                class="fa fa-check text-white"></i></button>
+                                </div>
+                                {{ form_end(filterForm) }}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6">
+                <div class="card shadow mb-4">
+                    <div class="card-body">
                         <form method="post">
                             {{ form_start(searchForm) }}
-                            <div class="form-group m-2">
-                                <div class="input-group d-flex justify-content-center">
-                                    {{ form_row(searchForm.search, {'attr': {'style': 'width: 745px;', 'placeholder': 'Rechercher un joueur...', 'aria-describedby': 'project-search-addon'}}) }}
-                                    <div class="input-group-append mx-1">
+                            <div class="form-group mt-2 mb-0">
+                                <div class="input-group pt-1 d-flex justify-content-center">
+                                    {{ form_row(searchForm.search, {'attr': {'placeholder': 'Rechercher un joueur...', 'aria-describedby': 'project-search-addon'}}) }}
+                                    <div class="input-group-append mx-3">
                                         <button class="btn btn-primary" type="submit" id="project-search-addon"><i
                                                     class="fa fa-search search-icon font-12"></i></button>
                                     </div>
@@ -85,25 +108,9 @@
                 </div>
             </div>
             <div class="col-xl-4 col-md-6">
-                <div class="card bg-pattern shadow">
-                    <div class="card-body pb-1">
-                        <div class="d-flex justify-content-between">
-                            <h5 class="font-size-20 mt-0">Filtrer par genre</h5>
-                            <i class="fa fa-venus-mars text-primary h4 ml-3"></i>
-                        </div>
-                        <div class="">
-                            <form method="post" class="d-flex justify-content-center">
-                                {{ form_start(filterForm) }}
-                                <div class="d-flex w-100">
-                                    {{ form_row(filterForm.gender, {'attr': {'class': 'd-flex justify-content-between', 'style': 'width: 200px;'}}) }}
-                                    <div class="input-group-append d-flex justify-content-center w-100">
-                                        <button class="btn btn-primary" style="height: 30px;" type="submit"><i
-                                                    class="fa-solid fa-check text-white"></i></button>
-                                    </div>
-                                </div>
-                                {{ form_end(filterForm) }}
-                            </form>
-                        </div>
+                <div class="d-flex justify-content-end">
+                    <div>
+                        <a href="/classement"><i class="fa-solid fa-rotate-right pe-2"></i>Réinitialiser la recherche</a>
                     </div>
                 </div>
             </div>
