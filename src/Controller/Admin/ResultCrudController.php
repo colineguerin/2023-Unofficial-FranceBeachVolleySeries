@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
@@ -45,6 +46,8 @@ class ResultCrudController extends AbstractCrudController
         yield AssociationField::new('user');
         yield IntegerField::new('ranking');
         yield IntegerField::new('points');
+        yield DateTimeField::new('createdAt', 'Créé le')->onlyOnDetail();
+        yield DateTimeField::new('updatedAt', 'Mis à jour le')->onlyOnDetail();
     }
 
     public function duplicateResult(

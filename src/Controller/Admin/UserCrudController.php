@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
@@ -55,13 +56,15 @@ class UserCrudController extends AbstractCrudController
             ChoiceField::new('gender', 'Sexe')
                 ->renderExpanded()
                 ->setChoices([
-                    'Homme' => 'true',
-                    'Femme' => 'false'
+                    'Homme' => 1,
+                    'Femme' => 0,
                 ]),
             ArrayField::new('roles', 'Rôles'),
             AssociationField::new('club', 'Club'),
             EmailField::new('email', 'Adresse email'),
-            IntegerField::new('point')->hideOnForm(),
+            IntegerField::new('point')->onlyOnDetail(),
+            DateTimeField::new('createdAt', 'Créé le')->onlyOnDetail(),
+            DateTimeField::new('updatedAt', 'Mis à jour le')->onlyOnDetail(),
         ];
 
         $password = TextField::new('password')
