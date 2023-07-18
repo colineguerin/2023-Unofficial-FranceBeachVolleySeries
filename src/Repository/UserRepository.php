@@ -71,7 +71,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findWomanPodium()
     {
         return $this->createQueryBuilder('u')
-            ->where("u.gender = 'false'")
+            ->where("u.gender = 0")
             ->orderBy('u.point', 'DESC')
             ->setMaxResults(3)
             ->getQuery()
@@ -81,7 +81,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findManPodium()
     {
         return $this->createQueryBuilder('u')
-            ->where("u.gender = 'true'")
+            ->where("u.gender = 1")
             ->orderBy('u.point', 'DESC')
             ->setMaxResults(3)
             ->getQuery()
@@ -91,7 +91,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findAllMenByRank()
     {
         return $this->createQueryBuilder('u')
-            ->where("u.gender = 'true'")
+            ->where("u.gender = 1")
             ->orderBy('u.point', 'DESC')
             ->getQuery()
             ->getResult();
@@ -100,7 +100,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findAllWomenByRank()
     {
         return $this->createQueryBuilder('u')
-            ->where("u.gender = 'false'")
+            ->where("u.gender = 0")
             ->orderBy('u.point', 'DESC')
             ->getQuery()
             ->getResult();
