@@ -42,8 +42,8 @@
                             <div class="card-body">
                                 <h5 class="card-title fw-bold">{{ article.title }}
                                 </h5>
-                                {% if article.subtitle|length > 80 %}
-                                    <p class="card-text">{{ article.subtitle|slice(0, 80) ~ '...' }}</p>
+                                {% if article.subtitle|length > 70 %}
+                                    <p class="card-text">{{ article.subtitle|slice(0, 70) ~ '...' }}</p>
                                 {% else %}
                                     <p class="card-text">{{ article.subtitle }}</p>
                                 {% endif %}
