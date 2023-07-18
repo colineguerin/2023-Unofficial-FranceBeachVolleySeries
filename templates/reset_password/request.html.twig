@@ -1,19 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="container mt-5">
     {% for flash_error in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        <div class="alert alert-danger w-50" role="alert">{{ flash_error }}</div>
     {% endfor %}
-    <h1>Modifier son mot de passe</h1>
 
-    {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
-        <div>
-            <small>
-                Entrez votre adresse email pour recevoir un lien vous permettant de changer votre mot de passe.
-            </small>
+        <h1>Modifier son mot de passe</h1>
+
+        <div class="w-50">
+            <div>
+                <small class="fw-bold">
+                    Entrez votre adresse email pour recevoir un lien vous permettant de changer votre mot de passe.
+                </small>
+            </div>
+            {{ form_start(requestForm) }}
+            {{ form_row(requestForm.email, {'attr': {'placeholder': 'Votre email...', 'aria-describedby': 'project-search-addon'}, 'label': ' '}) }}
+            <button class="btn btn-primary mt-2">Envoyer</button>
+            {{ form_end(requestForm) }}
+
         </div>
+    </div>
 
-        <button class="btn btn-primary">Envoyer</button>
-    {{ form_end(requestForm) }}
+
 {% endblock %}
