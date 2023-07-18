@@ -68,24 +68,40 @@ class TournamentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_tournament_show', methods: ['GET'])]
-    public function show(Tournament $tournament): Response
+    #[Route('/{id}', name: 'app_tournament_show', methods: ['GET', 'POST'])]
+    public function show(Tournament $tournament, Request $request, TournamentRepository $tournamentRepository): Response
     {
         $teams = $tournament->getTeams();
 
         $registeredTeams = count($teams);
         $availableSpots = $tournament->getMaxTeam() - $registeredTeams;
         $completionPercentage = 100 - (($availableSpots / $tournament->getMaxTeam()) * 100);
+        $currentDateTime = new DateTime();
+
+        // register a team
+        $form = $this->createForm(RegisterTournamentType::class, $tournament);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $team = $tournament->getTeams()->first();
+            $tournament->addTeam($team);
+            $tournamentRepository->save($tournament, true);
+            $this->addFlash('success', 'Votre équipe a bien été inscrite.');
+            return $this->redirectToRoute('app_tournament_index', [], Response::HTTP_SEE_OTHER);
+        }
 
         return $this->render('tournament/show.html.twig', [
             'tournament' => $tournament,
             'availableSpots' => $availableSpots,
             'completionPercentage' => $completionPercentage,
             'teams' => $teams,
+            'form' => $form,
+            'now' => $currentDateTime,
         ]);
     }
 
-    #[Route('/{id}/inscription', name: 'app_tournament_register', methods: ['GET', 'POST'])]
+    /* #[Route('/{id}/inscription', name: 'app_tournament_register', methods: ['GET', 'POST'])]
     public function registerTournament(Request $request, Tournament $tournament, TournamentRepository $tournamentRepository): Response
     {
         $form = $this->createForm(RegisterTournamentType::class, $tournament);
@@ -104,6 +120,6 @@ class TournamentController extends AbstractController
             'form' => $form,
             'tournament' => $tournament,
         ]);
-    }
+    }*/
 
 }

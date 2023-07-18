@@ -17,7 +17,7 @@
         {% endfor %}
         <div class="row">
             <div class="col">
-                <h1 class="fs-3 mb-4">Liste des tournois officiels</h1>
+                <h1 class="fs-3 mb-4">Tournois officiels</h1>
             </div>
         </div>
         <div class="row">
@@ -97,12 +97,11 @@
                                             {% else %}
                                                 <span class="badge text-bg-success">A venir</span>
                                             {% endif %}
-
                                         </td>
 
                                         <td>
                                             <div class="action d-flex">
-                                                <a href="{{ path('app_tournament_register', { id: tournament.id }) }}"
+                                                <a href="{{ path('app_tournament_show', { id: tournament.id }) }}"
                                                    class="text-primary mt-2 mx-1 icon-link icon-link-hover"> <i
                                                             class="fa fa-arrow-right-from-bracket h5 m-0"></i></a>
                                             </div>
