@@ -30,6 +30,10 @@ a {
     color: #ffffff;
 }
 
+#main-menu .menu .menu-item.active:not(.expanded) .menu-icon, #main-menu .menu .menu-item.active:not(.expanded) a {
+    color: var(--sidebar-menu-active-item-color);
+}
+
 .content-header, body {
     background-color: var(--fbvs-bg-color-light);
 }
@@ -54,34 +58,16 @@ a {
     color: var(--bs-light);
 }
 
-
-.btn-secondary:hover, .btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled):active:focus, .btn-secondary:not(:disabled):not(.disabled):focus {
-    background-color: #FFFFFF;
-    color: var(--bs-primary);
-}
-
 .btn:not(:disabled):not(.disabled):not(.btn-link):active, .btn:not(:disabled):not(.disabled):not(.btn-link):active:focus, .btn:not(:disabled):not(.disabled):not(.btn-link):focus {
     border: 0;
     box-shadow: none;
     color: var(--button-active-color);
 }
 
-.btn-secondary {
-    --bs-btn-color: var(--bs-primary);
-    --bs-btn-bg: #FFFFFF;
-    --bs-btn-border-color: #FFFFFF;
-    --bs-btn-hover-color: #FFFFFF;
-    --bs-btn-hover-bg: var(--bs-light);
-    --bs-btn-hover-border-color: var(--bs-primary);
-    --bs-btn-focus-shadow-rgb: none;
-    --bs-btn-active-color: var(--bs-primary);
-    --bs-btn-active-bg: var(--bs-light);
-    --bs-btn-active-border-color: var(--bs-primary);
-    --bs-btn-active-shadow: none;
-    --bs-btn-disabled-color: var(--bs-primary);
-    --bs-btn-disabled-bg: #FFFFFF;
-    --bs-btn-disabled-border-color: var(--bs-primary);
+.action-filters-button i {
+    color: var(--bs-light);
 }
+
 
 
 
