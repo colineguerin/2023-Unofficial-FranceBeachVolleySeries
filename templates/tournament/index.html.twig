@@ -22,7 +22,7 @@
         </div>
         <div class="row">
             <div class="col-xl-3 col-md-6">
-                <div class="card bg-pattern shadow mb-4">
+                <div class="card shadow mb-4">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h5 class="font-size-20 mt-0">{{ pastTournaments }}</h5>
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="col-xl-3 col-md-6">
-                <div class="card bg-pattern shadow mb-4">
+                <div class="card shadow mb-4">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h5 class="font-size-20 mt-0">{{ upcomingTournaments }}</h5>
@@ -43,22 +43,18 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-md-6">
+            <div class="col-xl-6 col-md-6">
                 <div class="card shadow mb-4">
-                    <div class="card-body pb-1">
-                        <form method="post">
-                            {{ form_start(form) }}
-                            <div class="form-group m-2">
-                                <div class="input-group d-flex">
-                                    {{ form_row(form.search, {'attr': {'placeholder': 'Rechercher...', 'aria-describedby': 'project-search-addon'}}) }}
-                                    <div class="input-group-append ms-3">
-                                        <button class="btn btn-primary" type="submit" id="project-search-addon"><i
-                                                    class="fa fa-search search-icon font-12"></i></button>
-                                    </div>
-                                </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        <div class="d-flex p-2">
+                            <div class="w-100 me-2">
+                                {{ form_widget(form.search, {'attr': {'placeholder': 'Rechercher...'}}) }}
                             </div>
-                            {{ form_end(form) }}
-                        </form>
+                            <button class="btn btn-primary" type="submit"><i
+                                        class="fa fa-search"></i></button>
+                        </div>
+                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>
@@ -88,7 +84,8 @@
                                         <td>{{ rank }}</td>
                                         <td class="text-muted">{{ tournament.tournamentDate ? tournament.tournamentDate|date('d-m-Y') : '' }}</td>
                                         <td>
-                                            <a href="{{ path("app_tournament_show", { id: tournament.id }) }}" class="text-decoration-none link-primary fw-bold">
+                                            <a href="{{ path("app_tournament_show", { id: tournament.id }) }}"
+                                               class="text-decoration-none link-primary fw-bold">
                                                 {{ tournament.name }}
                                             </a>
                                         </td>
@@ -105,7 +102,8 @@
 
                                         <td>
                                             <div class="action d-flex">
-                                                <a href="{{ path('app_tournament_register', { id: tournament.id }) }}" class="text-primary mt-2 mx-1 icon-link icon-link-hover"> <i
+                                                <a href="{{ path('app_tournament_register', { id: tournament.id }) }}"
+                                                   class="text-primary mt-2 mx-1 icon-link icon-link-hover"> <i
                                                             class="fa fa-arrow-right-from-bracket h5 m-0"></i></a>
                                             </div>
                                         </td>
