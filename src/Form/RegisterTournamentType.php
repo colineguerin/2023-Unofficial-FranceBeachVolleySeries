@@ -16,6 +16,7 @@ class RegisterTournamentType extends AbstractType
         $builder
             ->add('teams', EntityType::class, [
                 'class' => Team::class,
+                'label' => false,
                 'multiple' => true,
                 'expanded' => false,
             ])
