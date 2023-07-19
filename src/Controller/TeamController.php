@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Team;
+use App\Form\SearchUserType;
 use App\Form\TeamType;
 use App\Repository\TeamRepository;
 use App\Repository\UserRepository;
@@ -29,31 +30,25 @@ class TeamController extends AbstractController
     #[Route('/créer', name: 'app_team_new', methods: ['GET', 'POST'])]
     public function new(Request $request, Security $security): Response
     {
+        $team = new Team();
+
         $userId = $security->getUser()->getId();
         $user = $this->userRepository->findOneBy(['id' => $userId]);
 
-        $team = new Team();
-
-        $form = $this->createForm(TeamType::class, $team, ['current_user' => $user]);
+        $form = $this->createForm(SearchUserType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $createdAt = new \DateTimeImmutable('now');
-
-                if ($team->getPlayers()->count() !== 1) {
-                    $this->addFlash('danger', 'Veuillez sélectionner un seul partenaire.');
-                    return $this->redirectToRoute('app_team_new', [], Response::HTTP_SEE_OTHER);
-                }
-
-                $partner = $team->getPlayers()->first();
+                $permitNumber = $form->get('search')->getData();
+                $partner = $this->userRepository->findOneBy(['permitNumber' => $permitNumber]);
 
                 if (!$partner) {
-                    throw new \InvalidArgumentException('Le partenaire sélectionné n\'existe pas.');
+                    throw new \InvalidArgumentException('Ce numéro de licence n\'est pas attribué.');
                 }
 
-                if ($partner == $user) {
-                    throw new \InvalidArgumentException('Vous ne pouvez pas créer une équipe avec vous-même.');
+                if ($partner === $user) {
+                    throw new \InvalidArgumentException('Vous ne pouvez pas choisir votre propre numéro de licence.');
                 }
 
                 $existingTeam = $this->teamRepository->findOneByPlayers($user, $partner);
@@ -64,7 +59,7 @@ class TeamController extends AbstractController
 
                 $team->addPlayer($user);
                 $team->addPlayer($partner);
-                $team->setCreatedAt($createdAt);
+                $team->setCreatedAt(new \DateTimeImmutable());
                 $team->setIsActive(true);
 
                 $this->teamRepository->save($team, true);
@@ -73,7 +68,7 @@ class TeamController extends AbstractController
 
                 return $this->redirectToRoute('app_user_show', ['id' => $userId], Response::HTTP_SEE_OTHER);
             } catch (\Exception $e) {
-                $this->addFlash('error', $e->getMessage());
+                $this->addFlash('danger', $e->getMessage());
             }
         }
 
