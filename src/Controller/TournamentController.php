@@ -7,9 +7,11 @@ use App\Form\RegisterTournamentType;
 use App\Form\SearchTournamentType;
 use App\Repository\TeamRepository;
 use App\Repository\TournamentRepository;
+use App\Repository\UserRepository;
 use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -69,7 +71,13 @@ class TournamentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_tournament_show', methods: ['GET', 'POST'])]
-    public function show(Tournament $tournament, Request $request, TournamentRepository $tournamentRepository): Response
+    public function show(
+        Tournament $tournament,
+        Request $request,
+        TournamentRepository $tournamentRepository,
+        Security $security,
+        UserRepository $userRepository
+    ): Response
     {
         $teams = $tournament->getTeams();
 
@@ -78,17 +86,27 @@ class TournamentController extends AbstractController
         $completionPercentage = 100 - (($availableSpots / $tournament->getMaxTeam()) * 100);
         $currentDateTime = new DateTime();
 
-        // register a team
-        $form = $this->createForm(RegisterTournamentType::class, $tournament);
+        // Register a team
+        $userId = $security->getUser()->getId();
+        $user = $userRepository->findOneBy(['id' => $userId]);
+
+
+        $form = $this->createForm(RegisterTournamentType::class, $tournament, ['current_user' => $user]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $team = $tournament->getTeams()->first();
-            $tournament->addTeam($team);
+            $teams = $tournament->getTeams();
+            $teams[] = $form->get('teams')->getData()->first();
+            foreach ($teams as $team)
+            {
+                $tournament->addTeam($team);
+            }
+
             $tournamentRepository->save($tournament, true);
             $this->addFlash('success', 'Votre équipe a bien été inscrite.');
-            return $this->redirectToRoute('app_tournament_index', [], Response::HTTP_SEE_OTHER);
+
+            return $this->redirectToRoute('app_user_show', ['id' => $userId], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('tournament/show.html.twig', [
