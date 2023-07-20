@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Form\FilterUserType;
 use App\Form\SearchUserType;
 use App\Repository\UserRepository;
+use App\Service\PointsService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,21 +17,15 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ResultController extends AbstractController
 {
     #[Route('/classement', name: 'app_result', methods: ['GET', 'POST'])]
-    public function index(UserRepository $userRepository, Request $request, PaginatorInterface $paginator): Response
+    public function index(
+        UserRepository $userRepository,
+        Request $request,
+        PaginatorInterface $paginator,
+        PointsService $pointsService,
+    ): Response
     {
         // Update player total points
-        $users = $userRepository->findAll();
-        foreach ($users as $user) {
-            $results = $user->getResults();
-            $points = [];
-            foreach ($results as $result) {
-                $points[] = $result->getPoints();
-            }
-
-            $user->setPoint(array_sum($points));
-
-            $userRepository->save($user, true);
-        }
+        $pointsService->updateUsersPoints();
 
         // Get first three players
         $womanPodium = $userRepository->findWomanPodium();

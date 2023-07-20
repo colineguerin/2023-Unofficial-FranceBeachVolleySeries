@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\TeamRepository;
 use App\Repository\UserRepository;
+use App\Service\PointsService;
 use App\Service\RankingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -24,6 +25,7 @@ class UserController extends AbstractController
         User $user,
         Security $security,
         RankingService $rankingService,
+        PointsService $pointsService,
     ): Response
     {
         $currentUser = $security->getUser();
@@ -31,6 +33,8 @@ class UserController extends AbstractController
         if ($currentUser !== $user) {
             throw new AccessDeniedException('Vous n\'êtes pas autorisé à accéder à ce profil.');
         }
+
+        $pointsService->updateUsersPoints();
 
         $teams = $user->getTeams();
 
