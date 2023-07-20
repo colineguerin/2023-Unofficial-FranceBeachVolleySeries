@@ -42,10 +42,10 @@ class ResultCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield IdField::new('id')->hideOnForm();
-        yield AssociationField::new('tournament');
-        yield AssociationField::new('user');
-        yield IntegerField::new('ranking');
-        yield IntegerField::new('points');
+        yield AssociationField::new('tournament', 'Tournoi');
+        yield AssociationField::new('user', 'Joueur');
+        yield IntegerField::new('ranking', 'Place');
+        yield IntegerField::new('points', 'Points');
         yield DateTimeField::new('createdAt', 'Créé le')->onlyOnDetail();
         yield DateTimeField::new('updatedAt', 'Mis à jour le')->onlyOnDetail();
     }

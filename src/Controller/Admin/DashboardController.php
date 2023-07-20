@@ -61,7 +61,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Ajouter un tournoi', 'fas fa-plus', Tournament::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Afficher les tournois', 'fas fa-eye', Tournament::class)
         ]);
-        yield MenuItem::subMenu('Results', 'fas fa-trophy')->setSubItems([
+        yield MenuItem::subMenu('Résultats', 'fas fa-trophy')->setSubItems([
             MenuItem::linkToCrud('Ajouter un résultat', 'fas fa-plus', Result::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Afficher les résultats', 'fas fa-eye', Result::class)
         ]);

@@ -104,3 +104,22 @@ a {
         transform: scale(1);
     }
 }
+
+@media screen and (max-width: 768px) {
+
+    .fbvs-website-title {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 576px) {
+
+    .fbvs-mobile-footer-container {
+        flex-direction: column;
+    }
+
+    .fbvs-mobile-footer-items {
+        text-align: center;
+        padding-bottom: 8px;
+    }
+}
