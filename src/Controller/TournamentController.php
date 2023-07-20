@@ -7,6 +7,7 @@ use App\Form\RegisterTournamentType;
 use App\Form\SearchTournamentType;
 use App\Repository\TournamentRepository;
 use App\Repository\UserRepository;
+use App\Service\CalculateTournament;
 use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,49 +22,38 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class TournamentController extends AbstractController
 {
     #[Route('/', name: 'app_tournament_index', methods: ['GET', 'POST'])]
-    public function index(Request $request, TournamentRepository $tournamentRepository, PaginatorInterface $paginator): Response
+    public function index(
+        Request $request,
+        TournamentRepository $tournamentRepository,
+        PaginatorInterface $paginator,
+        CalculateTournament $calculateTournament,
+    ): Response
     {
-        //search bar
+        // Search bar
         $searchForm = $this->createForm(SearchTournamentType::class);
         $searchForm->handleRequest($request);
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $search = $searchForm->getData()['search'];
             $allTournaments = $tournamentRepository->findByNameTypeOrLocation($search);
-            $tournaments = $paginator->paginate(
-                $allTournaments,
-                $request->query->getInt('page', 1),
-                10
-            );
+
         } else {
             $allTournaments = $tournamentRepository->findBy([], ['tournamentDate' => 'DESC']);
-            $tournaments = $paginator->paginate(
-                $allTournaments,
-                $request->query->getInt('page', 1),
-                10
-            );
         }
 
-        //Calculate upcoming and past tournaments
-        $allTournaments = $tournamentRepository->findAll();
+        // Pagination
+        $tournaments = $paginator->paginate(
+            $allTournaments,
+            $request->query->getInt('page', 1),
+            10
+        );
+
         $currentDateTime = new DateTime();
-        $pastTournaments = 0;
-        $upcomingTournaments = 0;
-
-        foreach ($allTournaments as $allTournament) {
-            $tournamentDate = $allTournament->getTournamentDate();
-
-            if ($tournamentDate < $currentDateTime) {
-                $pastTournaments++;
-            } else {
-                $upcomingTournaments++;
-            }
-        }
 
         return $this->render('tournament/index.html.twig', [
             'tournaments' => $tournaments,
-            'pastTournaments' => $pastTournaments,
-            'upcomingTournaments' => $upcomingTournaments,
+            'pastTournaments' => $calculateTournament->calculatePastTournaments($tournamentRepository->findAll()),
+            'upcomingTournaments' => $calculateTournament->calculateUpcomingTournaments($tournamentRepository->findAll()),
             'now' => $currentDateTime,
             'searchForm' => $searchForm,
         ]);
