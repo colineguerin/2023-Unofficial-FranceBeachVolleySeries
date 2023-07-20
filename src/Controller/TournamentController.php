@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Tournament;
 use App\Form\RegisterTournamentType;
 use App\Form\SearchTournamentType;
-use App\Repository\TeamRepository;
 use App\Repository\TournamentRepository;
 use App\Repository\UserRepository;
 use DateTime;
@@ -25,11 +24,11 @@ class TournamentController extends AbstractController
     public function index(Request $request, TournamentRepository $tournamentRepository, PaginatorInterface $paginator): Response
     {
         //search bar
-        $form = $this->createForm(SearchTournamentType::class);
-        $form->handleRequest($request);
+        $searchForm = $this->createForm(SearchTournamentType::class);
+        $searchForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $search = $form->getData()['search'];
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $search = $searchForm->getData()['search'];
             $allTournaments = $tournamentRepository->findByNameTypeOrLocation($search);
             $tournaments = $paginator->paginate(
                 $allTournaments,
@@ -45,7 +44,7 @@ class TournamentController extends AbstractController
             );
         }
 
-        //Get upcoming and past tournaments
+        //Calculate upcoming and past tournaments
         $allTournaments = $tournamentRepository->findAll();
         $currentDateTime = new DateTime();
         $pastTournaments = 0;
@@ -66,7 +65,7 @@ class TournamentController extends AbstractController
             'pastTournaments' => $pastTournaments,
             'upcomingTournaments' => $upcomingTournaments,
             'now' => $currentDateTime,
-            'form' => $form,
+            'searchForm' => $searchForm,
         ]);
     }
 
@@ -89,7 +88,6 @@ class TournamentController extends AbstractController
         // Register a team
         $userId = $security->getUser()->getId();
         $user = $userRepository->findOneBy(['id' => $userId]);
-
 
         $form = $this->createForm(RegisterTournamentType::class, $tournament, ['current_user' => $user]);
         $form->handleRequest($request);
