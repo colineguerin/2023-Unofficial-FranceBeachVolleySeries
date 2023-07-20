@@ -21,19 +21,15 @@ class ArticleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $search = $form->getData()['search'];
             $allArticles = $articleRepository->findByTitle($search);
-            $articles = $paginator->paginate(
-                $allArticles,
-                $request->query->getInt('page', 1),
-                6
-            );
         } else {
             $allArticles = $articleRepository->findBy([], ['createdAt' => 'DESC']);
-            $articles = $paginator->paginate(
-                $allArticles,
-                $request->query->getInt('page', 1),
-                6
-            );
         }
+
+        $articles = $paginator->paginate(
+            $allArticles,
+            $request->query->getInt('page', 1),
+            6
+        );
 
         return $this->render(
             'article/index.html.twig',
