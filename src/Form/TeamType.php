@@ -19,6 +19,7 @@ class TeamType extends AbstractType
         $builder
             ->add('players', EntityType::class, [
                 'class' => User::class,
+                'label' => false,
                 'choice_label' => 'permitNumber',
                 'multiple' => true,
                 'expanded' => false,

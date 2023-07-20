@@ -15,7 +15,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_ADMIN')]
 class DashboardController extends AbstractDashboardController
 {
     #[Route('/admin', name: 'admin')]
@@ -38,7 +40,7 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToDashboard('Accueil', 'fa fa-home');
         yield MenuItem::subMenu('Articles', 'fas fa-newspaper')->setSubItems([
             MenuItem::linkToCrud('Ajouter un article', 'fas fa-plus', Article::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Afficher les articles', 'fas fa-eye', Article::class)
@@ -59,10 +61,10 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Ajouter un tournoi', 'fas fa-plus', Tournament::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Afficher les tournois', 'fas fa-eye', Tournament::class)
         ]);
-        yield MenuItem::subMenu('Results', 'fas fa-trophy')->setSubItems([
+        yield MenuItem::subMenu('Résultats', 'fas fa-trophy')->setSubItems([
             MenuItem::linkToCrud('Ajouter un résultat', 'fas fa-plus', Result::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Afficher les résultats', 'fas fa-eye', Result::class)
         ]);
-        yield MenuItem::linkToRoute('Quitter le dashboard', 'fas fa-right-from-bracket', 'app_index');
+        yield MenuItem::linkToRoute('Quitter', 'fas fa-right-from-bracket', 'app_index');
     }
 }

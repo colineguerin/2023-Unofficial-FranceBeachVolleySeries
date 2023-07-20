@@ -12,7 +12,9 @@ use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_USER')]
 #[Route('/joueur')]
 class UserController extends AbstractController
 {
@@ -25,7 +27,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/profil', name: 'app_user_show', methods: ['GET', 'POST'])]
-    public function show(User $user, TeamRepository $teamRepository, Security $security): Response
+    public function show(User $user, TeamRepository $teamRepository, Security $security, UserRepository $userRepository): Response
     {
         $currentUser = $security->getUser();
 
@@ -34,15 +36,33 @@ class UserController extends AbstractController
         }
 
         $teams = $user->getTeams();
+
         $results = $user->getResults();
 
         $currentDate = new \DateTime();
+
+        // Get user's national rank compared to all users
+        $users = $userRepository->findAll();
+        $points = [];
+        foreach ($users as $user) {
+            $points[] = $user->getPoint();
+        }
+        $userPoint = $currentUser->getPoint();
+
+        rsort($points);
+        $index = array_search($userPoint, $points);
+        if ($index !== false) {
+            $ranking = $index + 1;
+        } else {
+            $ranking = 0;
+        }
 
         return $this->render('user/show.html.twig', [
             'user' => $user,
             'teams' => $teams,
             'now' => $currentDate,
-            'results' => $results
+            'results' => $results,
+            'ranking' => $ranking,
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 {% block body %}
 
+<div class="mt-5 ms-5">
     {% for category, messages in app.flashes %}
         {% for message in messages %}
             <div class="w-25 alert alert-{{ category }}">
@@ -9,6 +10,7 @@
             </div>
         {% endfor %}
     {% endfor %}
+</div>
     <section class="p-5">
         <div class="container-fluid h-custom">
             <div class="row d-flex justify-content-between align-items-center h-100">

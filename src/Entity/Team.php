@@ -137,7 +137,11 @@ class Team
 
     public function __toString(): string {
         $firstPlayerName = $this->players[0]->getFirstname() . ' ' . $this->players[0]->getLastname();
-        $secondPlayerName = $this->players[1]->getFirstname() . ' ' . $this->players[1]->getLastname();
+        if ($this->players[1]) {
+            $secondPlayerName = $this->players[1]->getFirstname() . ' ' . $this->players[1]->getLastname();
+        } else {
+            $secondPlayerName = 'Joueur supprimé';
+        }
 
         return $firstPlayerName . ' / ' . $secondPlayerName;
     }

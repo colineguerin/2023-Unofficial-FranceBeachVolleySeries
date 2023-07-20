@@ -1,9 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <p>
-        Si un compte correspondant à votre email existe, un email vient d'être envoyé à cette adresse contenant un lien que vous pouvez utiliser pour recréer un nouveau mot de passe.
-        Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
-    </p>
-    <p>Si vous ne recevez pas l'email, veuillez consulter vos spams ou <a href="{{ path('app_forgot_password_request') }}">réessayez</a>.</p>
+    <div class="container mt-5">
+        <h1>Modifier son mot de passe</h1>
+        <div class="alert alert-success w-50 mt-4">
+            <p class="mb-0">
+                Si un compte correspondant à votre email existe, un email vient d'être envoyé à cette adresse contenant
+                un lien que vous pouvez utiliser pour recréer un nouveau mot de passe.
+                Ce lien expirera dans 5 minutes.
+            </p>
+        </div>
+        <div class="w-50 mt-3">
+            <p>Si vous ne recevez pas l'email, veuillez consulter vos spams ou <a
+                        href="{{ path('app_forgot_password_request') }}">réessayez</a>.</p>
+        </div>
+
+    </div>
+
 {% endblock %}

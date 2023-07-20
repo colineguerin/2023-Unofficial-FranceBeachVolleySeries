@@ -3,8 +3,10 @@
 namespace App\DataFixtures;
 
 use App\Entity\Club;
+use DateTimeImmutable;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Faker\Factory;
 
 class ClubFixtures extends Fixture
 {
@@ -43,13 +45,17 @@ class ClubFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        foreach (self::CLUBS as $key => $value) {
+        $faker = Factory::create('fr_FR');
+
+        foreach (self::CLUBS as $key => $value)
+        {
             $club = new Club();
             $club->setName($value['name']);
+            $club->setCreatedAt(DateTimeImmutable::createFromMutable($faker
+                ->dateTimeBetween('-15 years', '-2 years')));
             $manager->persist($club);
+            $this->addReference('club_' . $value['name'], $club);
         }
         $manager->flush();
     }
-
-
 }
