@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\{Action, Actions, Crud};
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
@@ -50,6 +51,7 @@ class TournamentCrudController extends AbstractCrudController
         yield IntegerField::new('maxTeam', 'Nombre d\'équipes maximum')->hideOnIndex();
         yield AssociationField::new('teams', 'Equipes inscrites');
         yield TextEditorField::new('details', 'Détails');
+        yield CollectionField::new('results', 'Résultats')->onlyOnDetail();
         yield DateTimeField::new('createdAt', 'Créé le')->onlyOnDetail();
         yield DateTimeField::new('updatedAt', 'Mis à jour le')->onlyOnDetail();
     }
