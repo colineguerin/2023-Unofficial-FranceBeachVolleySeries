@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\TeamRepository;
 use App\Repository\UserRepository;
+use App\Service\InactiveTeam;
 use App\Service\PointsService;
 use App\Service\RankingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,6 +27,7 @@ class UserController extends AbstractController
         Security $security,
         RankingService $rankingService,
         PointsService $pointsService,
+        InactiveTeam $inactiveTeam,
     ): Response
     {
         $currentUser = $security->getUser();
@@ -35,6 +37,7 @@ class UserController extends AbstractController
         }
 
         $pointsService->updateUsersPoints();
+        $inactiveTeam->updateInactiveTeams($user);
         $teams = $user->getTeams();
         $results = $user->getResults();
 
