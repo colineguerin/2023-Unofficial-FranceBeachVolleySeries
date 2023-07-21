@@ -27,11 +27,7 @@ class ResultController extends AbstractController
         // Update player total points
         $pointsService->updateUsersPoints();
 
-        // Get first three players
-        $womanPodium = $userRepository->findWomanPodium();
-        $manPodium = $userRepository->findManPodium();
-
-        // Search bar
+        // Search and filter forms
         $searchForm = $this->createForm(SearchUserType::class);
         $searchForm->handleRequest($request);
 
@@ -62,8 +58,8 @@ class ResultController extends AbstractController
         return $this->render('result/index.html.twig', [
             'players' => $players,
             'searchForm' => $searchForm,
-            'womanPodium' => $womanPodium,
-            'manPodium' => $manPodium,
+            'womanPodium' => $userRepository->findWomanPodium(),
+            'manPodium' => $userRepository->findManPodium(),
             'filterForm' => $filterForm,
         ]);
     }

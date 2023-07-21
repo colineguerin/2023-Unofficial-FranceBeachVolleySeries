@@ -30,8 +30,6 @@ class TeamController extends AbstractController
     #[Route('/créer', name: 'app_team_new', methods: ['GET', 'POST'])]
     public function new(Request $request, Security $security): Response
     {
-        $team = new Team();
-
         $userId = $security->getUser()->getId();
         $user = $this->userRepository->findOneBy(['id' => $userId]);
 
@@ -57,6 +55,7 @@ class TeamController extends AbstractController
                     return $this->redirectToRoute('app_team_new', [], Response::HTTP_SEE_OTHER);
                 }
 
+                $team = new Team();
                 $team->addPlayer($user);
                 $team->addPlayer($partner);
                 $team->setCreatedAt(new \DateTimeImmutable());
@@ -73,7 +72,6 @@ class TeamController extends AbstractController
         }
 
         return $this->render('team/new.html.twig', [
-            'team' => $team,
             'form' => $form,
         ]);
     }

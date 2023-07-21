@@ -8,6 +8,7 @@ use App\Form\SearchTournamentType;
 use App\Repository\TournamentRepository;
 use App\Repository\UserRepository;
 use App\Service\CalculateTournament;
+use App\Service\CompletionService;
 use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -48,13 +49,11 @@ class TournamentController extends AbstractController
             10
         );
 
-        $currentDateTime = new DateTime();
-
         return $this->render('tournament/index.html.twig', [
             'tournaments' => $tournaments,
             'pastTournaments' => $calculateTournament->calculatePastTournaments($tournamentRepository->findAll()),
             'upcomingTournaments' => $calculateTournament->calculateUpcomingTournaments($tournamentRepository->findAll()),
-            'now' => $currentDateTime,
+            'now' => new DateTime(),
             'searchForm' => $searchForm,
         ]);
     }
@@ -65,16 +64,10 @@ class TournamentController extends AbstractController
         Request $request,
         TournamentRepository $tournamentRepository,
         Security $security,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        CompletionService $completionService,
     ): Response
     {
-        $teams = $tournament->getTeams();
-
-        $registeredTeams = count($teams);
-        $availableSpots = $tournament->getMaxTeam() - $registeredTeams;
-        $completionPercentage = 100 - (($availableSpots / $tournament->getMaxTeam()) * 100);
-        $currentDateTime = new DateTime();
-
         // Register a team
         $userId = $security->getUser()->getId();
         $user = $userRepository->findOneBy(['id' => $userId]);
@@ -99,11 +92,11 @@ class TournamentController extends AbstractController
 
         return $this->render('tournament/show.html.twig', [
             'tournament' => $tournament,
-            'availableSpots' => $availableSpots,
-            'completionPercentage' => $completionPercentage,
-            'teams' => $teams,
+            'availableSpots' => $completionService->getAvailableSpots($tournament),
+            'completionPercentage' => $completionService->getCompletionPercentage($tournament),
+            'teams' => $tournament->getTeams(),
             'form' => $form,
-            'now' => $currentDateTime,
+            'now' => new DateTime(),
         ]);
     }
 

@@ -35,17 +35,13 @@ class UserController extends AbstractController
         }
 
         $pointsService->updateUsersPoints();
-
         $teams = $user->getTeams();
-
         $results = $user->getResults();
-
-        $currentDate = new \DateTime();
 
         return $this->render('user/show.html.twig', [
             'user' => $user,
             'teams' => $teams,
-            'now' => $currentDate,
+            'now' => new \DateTime(),
             'results' => $results,
             'ranking' => $rankingService->getRank($user),
         ]);
