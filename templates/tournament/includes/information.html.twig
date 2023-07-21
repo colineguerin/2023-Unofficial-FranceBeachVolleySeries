@@ -1,0 +1,26 @@
+<div class="col-lg-5">
+    <dl class="dl-horizontal">
+        <dt><i class="fa-solid fa-location-dot pe-2"></i>A :</dt>
+        <dd>{{ tournament.location }}</dd>
+        <dt><i class="fa-solid fa-calendar pe-2"></i>Le :</dt>
+        <dd>{{ tournament.tournamentDate ? tournament.tournamentDate|date('d-m-Y') : '' }}
+            à {{ tournament.tournamentDate ? tournament.tournamentDate|date('H:i') : '' }}</dd>
+    </dl>
+</div>
+<div class="col-lg-5" id="cluster_info">
+    <dl class="dl-horizontal">
+        <dt><i class="fa-solid fa-shield pe-2"></i>Organisé par :</dt>
+        <dd>{{ tournament.club }}</dd>
+        <dt><i class="fa-solid fa-trophy pe-2"></i>Catégorie :</dt>
+        <dd>{{ tournament.category }}</dd>
+    </dl>
+</div>
+<div class="col-lg-2">
+    <div class="d-flex justify-content-end">
+        {% if tournament.tournamentDate < now %}
+            <span class="badge text-bg-danger h-75 fs-6">Passé</span>
+        {% else %}
+            <span class="badge text-bg-success h-75 fs-6">A venir</span>
+        {% endif %}
+    </div>
+</div>
