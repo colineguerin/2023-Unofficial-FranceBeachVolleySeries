@@ -34,10 +34,11 @@ class TeamCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            DateTimeField::new('createdAt', 'Créé le')->hideOnForm(),
-            DateTimeField::new('updatedAt', 'Mis à jour le')->hideOnForm(),
             AssociationField::new('players', 'Joueurs'),
             BooleanField::new('isActive', 'Active'),
+            AssociationField::new('tournaments', 'Tournois')->onlyOnDetail(),
+            DateTimeField::new('createdAt', 'Créé le')->hideOnForm(),
+            DateTimeField::new('updatedAt', 'Mis à jour le')->hideOnForm(),
         ];
     }
 }
