@@ -99,26 +99,4 @@ class TournamentController extends AbstractController
             'now' => new DateTime(),
         ]);
     }
-
-    /* #[Route('/{id}/inscription', name: 'app_tournament_register', methods: ['GET', 'POST'])]
-    public function registerTournament(Request $request, Tournament $tournament, TournamentRepository $tournamentRepository): Response
-    {
-        $form = $this->createForm(RegisterTournamentType::class, $tournament);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $team = $tournament->getTeams()->first();
-            $tournament->addTeam($team);
-            $tournamentRepository->save($tournament, true);
-            $this->addFlash('success', 'Votre équipe a bien été inscrite.');
-            return $this->redirectToRoute('app_tournament_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('tournament/register.html.twig', [
-            'form' => $form,
-            'tournament' => $tournament,
-        ]);
-    }*/
-
 }
