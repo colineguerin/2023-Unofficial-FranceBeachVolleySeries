@@ -1,0 +1,66 @@
+<div class="card mb-4 shadow">
+    <div class="card-body">
+        <div class="row">
+            <div class="row">
+                <div class="d-flex justify-content-between py-1">
+                    <h1 class="fs-5 text-primary">Informations personnelles</h1>
+                    <a href="{{ path('contact') }}"
+                       class="link-secondary link-underline-opacity-0"><i
+                                class="fa-solid fa-pencil pe-2"></i>Modifier</a>
+                </div>
+            </div>
+            <hr>
+            <div class="col-sm-3">
+                <p class="mb-0 text-primary fw-bold"><i
+                            class="fa-solid fa-pen-to-square pe-2"></i>Nom complet</p>
+            </div>
+            <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ app.user.firstname }} {{ app.user.lastname }}</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <p class="mb-0 text-primary fw-bold"><i
+                            class="fa-solid fa-address-card pe-2"></i>Numéro de licence</p>
+            </div>
+            <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ app.user.permitNumber }}</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <p class="mb-0 text-primary fw-bold"><i class="fa-solid fa-shield pe-2"></i>Club
+                </p>
+            </div>
+            <div class="col-sm-9">
+                {% if app.user.club %}
+                    <p class="text-muted mb-0">{{ app.user.club }}</p>
+                {% else %}
+                    <p class="text-muted mb-0">Aucun club enregistré</p>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <p class="mb-0 text-primary fw-bold"><i class="fa-solid fa-venus-mars pe-2"></i>Sexe
+                </p>
+            </div>
+            <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ app.user.gender ? 'Homme' : 'Femme' }}</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <p class="mb-0 text-primary fw-bold"><i class="fa-solid fa-envelope pe-2"></i>Adresse
+                    email</p>
+            </div>
+            <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ app.user.email }}</p>
+            </div>
+        </div>
+    </div>
+</div>

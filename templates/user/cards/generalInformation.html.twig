@@ -1,0 +1,15 @@
+<div class="card mb-4 shadow">
+    <div class="card-body text-center">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+             alt="avatar"
+             class="rounded-circle img-fluid" style="width: 150px;">
+        <h4 class="my-3 fw-bold">{{ app.user.firstname }} {{ app.user.lastname }}</h4>
+        {% if app.user.club %}
+            <p class="text-muted mb-4">{{ app.user.club }}</p>
+        {% endif %}
+        <div class="d-flex justify-content-center mb-2">
+                                    <span class="badge text-bg-danger fs-6 p-2">
+                                        <i class="fa-solid fa-star pe-2"></i>{{ ranking }}e au classement national</span>
+        </div>
+    </div>
+</div>
