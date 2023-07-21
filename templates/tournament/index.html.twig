@@ -65,7 +65,7 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <div class="table-responsive project-list">
-                            <table class="table project-table table-centered table-nowrap table-hover">
+                            <table class="table project-table table-centered table-nowrap table-hover table-responsive">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -74,11 +74,11 @@
                                     <th scope="col">Catégorie</th>
                                     <th scope="col">Lieu</th>
                                     <th scope="col">Statut</th>
-                                    <th scope="col">S'inscrire</th>
+                                    <th scope="col">Inscription</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% set rank = 1 %}
+                                {% set rank = (tournaments.getCurrentPageNumber() - 1) * tournaments.getItemNumberPerPage() + 1 %}
                                 {% for tournament in tournaments %}
                                     <tr>
                                         <td>{{ rank }}</td>
