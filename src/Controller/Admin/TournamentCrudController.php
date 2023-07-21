@@ -50,7 +50,8 @@ class TournamentCrudController extends AbstractCrudController
         yield AssociationField::new('club', 'Club organisateur')->setRequired(true);
         yield IntegerField::new('maxTeam', 'Nombre d\'équipes maximum')->hideOnIndex();
         yield AssociationField::new('teams', 'Equipes inscrites');
-        yield TextEditorField::new('details', 'Détails');
+        yield TextEditorField::new('details', 'Détails')->hideOnIndex();
+        yield AssociationField::new('teams', 'Equipes')->setRequired(false);
         yield CollectionField::new('results', 'Résultats')->onlyOnDetail();
         yield DateTimeField::new('createdAt', 'Créé le')->onlyOnDetail();
         yield DateTimeField::new('updatedAt', 'Mis à jour le')->onlyOnDetail();
