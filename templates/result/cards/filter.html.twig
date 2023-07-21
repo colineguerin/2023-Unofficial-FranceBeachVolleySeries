@@ -1,0 +1,17 @@
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <h5 class="mt-0">Filtrer par genre</h5>
+            <i class="fa fa-venus-mars text-primary h4 ml-3"></i>
+        </div>
+        {{ form_start(filterForm) }}
+        <div class="d-flex">
+            <div class="w-100 pt-2">
+                {{ form_widget(filterForm.gender, {'attr': {'class': 'd-flex justify-content-evenly'}}) }}
+            </div>
+            <button class="btn btn-primary me-5" type="submit"><i
+                        class="fa fa-check"></i></button>
+        </div>
+        {{ form_end(filterForm) }}
+    </div>
+</div>

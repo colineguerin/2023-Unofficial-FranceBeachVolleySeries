@@ -1,0 +1,19 @@
+<div class="card bg-pattern shadow mb-4">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <i class="fa fa-ranking-star text-success h4 ml-3"></i>
+            <h5 class="font-size-20 mt-0 text-success fw-bold">Classement masculin</h5>
+        </div>
+        <div class="ps-5">
+            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: goldenrod"></i><span
+                        class="fw-bold">1 - {{ manPodium[0].firstname }} {{ manPodium[0].lastname }}</span>
+                ({{ manPodium[0].point }} points)</p>
+            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: silver"></i><span
+                        class="fw-bold">2 - {{ manPodium[1].firstname }} {{ manPodium[1].lastname }}</span>
+                ({{ manPodium[1].point }} points)</p>
+            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: brown"></i><span
+                        class="fw-bold">3 - {{ manPodium[2].firstname }} {{ manPodium[2].lastname }}</span>
+                ({{ manPodium[2].point }} points)</p>
+        </div>
+    </div>
+</div>
