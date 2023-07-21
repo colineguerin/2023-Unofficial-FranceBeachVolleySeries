@@ -63,6 +63,7 @@ class UserCrudController extends AbstractCrudController
             AssociationField::new('club', 'Club'),
             EmailField::new('email', 'Adresse email'),
             IntegerField::new('point')->onlyOnDetail(),
+            AssociationField::new('teams', 'Equipes')->onlyOnDetail(),
             DateTimeField::new('createdAt', 'Créé le')->onlyOnDetail(),
             DateTimeField::new('updatedAt', 'Mis à jour le')->onlyOnDetail(),
         ];
