@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Tournament;
 use App\Form\RegisterTournamentType;
-use App\Form\SearchTournamentType;
+use App\Form\SearchAllType;
 use App\Repository\TournamentRepository;
 use App\Repository\UserRepository;
 use App\Service\CalculateTournament;
@@ -31,7 +31,7 @@ class TournamentController extends AbstractController
     ): Response
     {
         // Search bar
-        $searchForm = $this->createForm(SearchTournamentType::class);
+        $searchForm = $this->createForm(SearchAllType::class);
         $searchForm->handleRequest($request);
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {

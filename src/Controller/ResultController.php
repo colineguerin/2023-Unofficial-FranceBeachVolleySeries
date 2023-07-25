@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Form\FilterUserType;
-use App\Form\SearchUserType;
+use App\Form\SearchAllType;
 use App\Repository\UserRepository;
 use App\Service\PointsService;
 use Knp\Component\Pager\PaginatorInterface;
@@ -28,7 +28,7 @@ class ResultController extends AbstractController
         $pointsService->updateUsersPoints();
 
         // Search and filter forms
-        $searchForm = $this->createForm(SearchUserType::class);
+        $searchForm = $this->createForm(SearchAllType::class);
         $searchForm->handleRequest($request);
 
         $filterForm = $this->createForm(FilterUserType::class);

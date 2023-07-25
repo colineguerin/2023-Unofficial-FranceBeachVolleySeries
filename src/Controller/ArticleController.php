@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Form\SearchArticleType;
+use App\Form\SearchAllType;
 use App\Repository\ArticleRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,11 +15,11 @@ class ArticleController extends AbstractController
     #[Route('/', name: 'app_index', methods: ['GET', 'POST'])]
     public function index(ArticleRepository $articleRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $form = $this->createForm(SearchArticleType::class);
-        $form->handleRequest($request);
+        $searchForm = $this->createForm(SearchAllType::class);
+        $searchForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $search = $form->getData()['search'];
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $search = $searchForm->getData()['search'];
             $allArticles = $articleRepository->findByTitle($search);
         } else {
             $allArticles = $articleRepository->findBy([], ['createdAt' => 'DESC']);
@@ -35,7 +35,7 @@ class ArticleController extends AbstractController
             'article/index.html.twig',
             [
                 'articles' => $articles,
-                'form' => $form
+                'searchForm' => $searchForm
             ],
         );
     }
