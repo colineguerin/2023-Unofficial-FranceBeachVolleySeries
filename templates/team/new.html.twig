@@ -1,30 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="container mt-5">
-    {% for category, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="d-flex w-100 justify-content-start">
-                <div class="alert alert-{{ category }} w-50">
-                    <i class="fa-solid fa-triangle-exclamation pe-2"></i>
-                    {{ message }}
-                </div>
-            </div>
-        {% endfor %}
-    {% endfor %}
-
-    <div class="">
+    <div class="container mt-5">
         <h1 class="mb-3">Créer une nouvelle équipe</h1>
         <p class="fw-bold">Entrez le numéro de licence de votre partenaire :</p>
         <div class="w-50">
             {{ form_start(form) }}
             {{ form_row(form.search) }}
             <div class="my-2">
-                <small class="">Pour rappel, les équipes officielles de beach-volley sont composées de <span class="text-danger">deux joueurs</span> uniquement.</small>
+                <small class="">Pour rappel, les équipes officielles de beach-volley sont composées de <span
+                            class="text-danger">deux joueurs</span> uniquement.</small>
             </div>
             <button class="btn btn-primary mt-3">{{ button_label|default('Valider') }}</button>
             {{ form_end(form) }}
         </div>
     </div>
-</div>
 {% endblock %}

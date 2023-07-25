@@ -3,18 +3,6 @@
 {% block body %}
 
     <div class="container mt-4">
-        {% for category, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="row">
-                    <div class="col">
-                        <div class="alert alert-{{ category }} w-25">
-                            <i class="fa-solid fa-circle-check pe-2"></i>
-                            {{ message }}
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        {% endfor %}
         <div class="row">
             <div class="col">
                 <h1 class="fs-3 mb-4">Classement national</h1>
