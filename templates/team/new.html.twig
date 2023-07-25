@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container mt-5">
+    <div class="container mt-5 vh-100">
         <h1 class="mb-3">Créer une nouvelle équipe</h1>
         <p class="fw-bold">Entrez le numéro de licence de votre partenaire :</p>
         <div class="w-50">
-            {{ form_start(form) }}
-            {{ form_row(form.search) }}
+            {{ form_start(searchForm) }}
+            {{ form_row(searchForm.search) }}
             <div class="my-2">
-                <small class="">Pour rappel, les équipes officielles de beach-volley sont composées de <span
-                            class="text-danger">deux joueurs</span> uniquement.</small>
+                <small>Pour rappel, les équipes officielles de beach-volley sont composées de <span
+                            class="text-danger fw-bold">deux joueurs</span> uniquement.</small>
             </div>
             <button class="btn btn-primary mt-3">{{ button_label|default('Valider') }}</button>
-            {{ form_end(form) }}
+            {{ form_end(searchForm) }}
         </div>
     </div>
 {% endblock %}

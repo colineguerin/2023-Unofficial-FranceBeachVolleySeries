@@ -3,8 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Team;
-use App\Form\SearchUserType;
-use App\Form\TeamType;
+use App\Form\SearchAllType;
 use App\Repository\TeamRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,12 +32,12 @@ class TeamController extends AbstractController
         $userId = $security->getUser()->getId();
         $user = $this->userRepository->findOneBy(['id' => $userId]);
 
-        $form = $this->createForm(SearchUserType::class);
-        $form->handleRequest($request);
+        $searchForm = $this->createForm(SearchAllType::class);
+        $searchForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             try {
-                $permitNumber = $form->get('search')->getData();
+                $permitNumber = $searchForm->get('search')->getData();
                 $partner = $this->userRepository->findOneBy(['permitNumber' => $permitNumber]);
 
                 if (!$partner) {
@@ -51,8 +50,7 @@ class TeamController extends AbstractController
 
                 $existingTeam = $this->teamRepository->findOneByPlayers($user, $partner);
                 if ($existingTeam) {
-                    $this->addFlash('danger', 'Cette équipe existe déjà.');
-                    return $this->redirectToRoute('app_team_new', [], Response::HTTP_SEE_OTHER);
+                    throw new \InvalidArgumentException('Cette équipe existe déjà.');
                 }
 
                 $team = new Team();
@@ -72,7 +70,7 @@ class TeamController extends AbstractController
         }
 
         return $this->render('team/new.html.twig', [
-            'form' => $form,
+            'searchForm' => $searchForm,
         ]);
     }
 
