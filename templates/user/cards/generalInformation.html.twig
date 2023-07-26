@@ -1,6 +1,6 @@
 <div class="card mb-4 shadow">
     <div class="card-body text-center">
-        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+        <img src="{{ app.user.avatar }}"
              alt="avatar"
              class="rounded-circle img-fluid" style="width: 150px;">
         <h4 class="my-3 fw-bold">{{ app.user.firstname }} {{ app.user.lastname }}</h4>

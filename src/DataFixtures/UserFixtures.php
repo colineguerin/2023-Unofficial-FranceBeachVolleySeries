@@ -30,6 +30,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin->setGender(0);
         $admin->setEmail('admin@fbvs.com');
         $admin->setPoint(0);
+        $admin->setAvatar('https://api.dicebear.com/6.x/personas/svg?eyes=sunglasses&mouth=smile&hair=pigtails&skinColor=e5a07e&hairColor=6c4545&clothingColor=456dff');
         $admin->setClub(
             $this->getReference('club_' . 'Bordeaux Beach Chillers')
         );
@@ -56,6 +57,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $woman->setLastName($faker->lastName);
             $woman->setGender(0);
             $woman->setPoint(0);
+            $woman->setAvatar('https://api.dicebear.com/6.x/personas/svg?eyes=open&mouth=bigSmile,smile,smirk&hair=long&skinColor=e5a07e&hairColor=6c4545&clothingColor=f3b63a');
             $woman->setCreatedAt(DateTimeImmutable::createFromMutable($faker
                 ->dateTimeBetween('-15 years', '-10 months')));
             $woman->setClub(
@@ -89,6 +91,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $man->setLastName($faker->lastName);
             $man->setGender(1);
             $man->setPoint(0);
+            $man->setAvatar('https://api.dicebear.com/6.x/personas/svg?eyes=open&mouth=smirk&hair=shortCombover&skinColor=b16a5b&hairColor=362c47');
             $man->setCreatedAt(DateTimeImmutable::createFromMutable($faker
                 ->dateTimeBetween('-15 years', '-10 months')));
             $man->setClub(
