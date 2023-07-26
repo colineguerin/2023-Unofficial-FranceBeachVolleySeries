@@ -19,11 +19,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TournamentCrudController extends AbstractCrudController
 {
-    public CONST ACTION_DUPLICATE = 'Dupliquer';
+    public const ACTION_DUPLICATE = 'Dupliquer';
+
     public static function getEntityFqcn(): string
     {
         return Tournament::class;
     }
+
     public function configureActions(Actions $actions): Actions
     {
         $duplicate = Action::new(self::ACTION_DUPLICATE)
@@ -49,17 +51,19 @@ class TournamentCrudController extends AbstractCrudController
         yield DateTimeField::new('tournamentDate', 'Date et heure')->setRequired(true);
         yield AssociationField::new('club', 'Club organisateur')->setRequired(true);
         yield IntegerField::new('maxTeam', 'Nombre d\'équipes maximum')->hideOnIndex();
-        yield AssociationField::new('teams', 'Equipes inscrites');
         yield TextEditorField::new('details', 'Détails')->hideOnIndex();
-        yield AssociationField::new('teams', 'Equipes')->setRequired(false);
+        yield AssociationField::new('teams', 'Equipes inscrites')
+            ->setRequired(false)
+            ->hideOnDetail();
+        yield CollectionField::new('teams', 'Equipes inscrites')->onlyOnDetail();
         yield CollectionField::new('results', 'Résultats')->onlyOnDetail();
         yield DateTimeField::new('createdAt', 'Créé le')->onlyOnDetail();
         yield DateTimeField::new('updatedAt', 'Mis à jour le')->onlyOnDetail();
     }
 
     public function duplicateTournament(
-        AdminContext $context,
-        AdminUrlGenerator $adminUrlGenerator,
+        AdminContext           $context,
+        AdminUrlGenerator      $adminUrlGenerator,
         EntityManagerInterface $entityManager
     ): Response
     {
