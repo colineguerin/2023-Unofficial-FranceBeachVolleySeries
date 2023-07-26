@@ -33,6 +33,9 @@ class Team
     #[ORM\OneToMany(mappedBy: 'team', targetEntity: Result::class)]
     private Collection $results;
 
+    #[ORM\Column]
+    private ?bool $isValidated = null;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
@@ -172,6 +175,18 @@ class Team
                 $result->setTeam(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsValidated(): ?bool
+    {
+        return $this->isValidated;
+    }
+
+    public function setIsValidated(bool $isValidated): static
+    {
+        $this->isValidated = $isValidated;
 
         return $this;
     }

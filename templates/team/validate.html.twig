@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_team_validate', {'id': team.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir valider cette équipe ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('validate' ~ team.id) }}">
+    <button class="border-0 bg-transparent dropdown-item">Valider</button>
+</form>

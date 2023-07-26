@@ -28,6 +28,9 @@
                                     class="fas fa-ellipsis-vertical fa-lg"></i>
                         </button>
                         <ul class="dropdown-menu">
+                            {% if not team.isValidated and team.players[1] is same as(app.user) %}
+                                <li>{{ include('team/validate.html.twig') }}</li>
+                            {% endif %}
                             {% if not team.isActive %}
                                 <li>{{ include('team/reactivate.html.twig') }}</li>
                             {% endif %}
@@ -38,13 +41,18 @@
                         <p class="mb-0">{{ team.players[0].firstname }} {{ team.players[0].lastname }}
                             /
                             {{ team.players[1].firstname }} {{ team.players[1].lastname }}</p>
-                        {% if team.isActive %}
-                            <p class="text-success mb-0"><small
-                                        class="text-body-success">Active</small></p>
+                        {% if team.isValidated %}
+                            {% if team.isActive %}
+                                <p class="text-success mb-0"><small
+                                            class="text-body-success">Active</small></p>
+                            {% else %}
+                                <p class="text-muted mb-0"><small
+                                            class="text-body-secondary">Inactive</small>
+                                </p>
+                            {% endif %}
                         {% else %}
-                            <p class="text-muted mb-0"><small
-                                        class="text-body-secondary">Inactive</small>
-                            </p>
+                            <p class="text-danger mb-0"><small
+                                        class="text-body-danger">Non validée</small></p>
                         {% endif %}
                     </div>
                 </li>
