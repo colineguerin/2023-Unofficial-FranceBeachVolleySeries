@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-class CalculateTournament
+class TournamentCalculator
 {
     public function calculatePastTournaments($tournaments): int
     {

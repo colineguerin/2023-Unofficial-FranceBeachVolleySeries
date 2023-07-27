@@ -6,7 +6,7 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\SecurityBundle\Security;
 
-class RankingService
+class UserRanking
 {
     private UserRepository $userRepository;
     private Security $security;

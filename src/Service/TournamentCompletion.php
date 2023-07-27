@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Entity\Tournament;
 
-class CompletionService
+class TournamentCompletion
 {
     public function getAvailableSpots(Tournament $tournament): int
     {

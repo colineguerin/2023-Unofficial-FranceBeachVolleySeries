@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Repository\UserRepository;
 
-class PointsService
+class UserPoints
 {
     private UserRepository $userRepository;
 
