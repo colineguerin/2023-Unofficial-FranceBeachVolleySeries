@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Form\FilterUserType;
 use App\Form\SearchAllType;
 use App\Repository\UserRepository;
-use App\Service\PointsService;
+use App\Service\UserPoints;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,14 +18,14 @@ class ResultController extends AbstractController
 {
     #[Route('/classement', name: 'app_result', methods: ['GET', 'POST'])]
     public function index(
-        UserRepository $userRepository,
-        Request $request,
+        UserRepository     $userRepository,
+        Request            $request,
         PaginatorInterface $paginator,
-        PointsService $pointsService,
+        UserPoints         $userPoints,
     ): Response
     {
         // Update player total points
-        $pointsService->updateUsersPoints();
+        $userPoints->updateUsersPoints();
 
         // Search and filter forms
         $searchForm = $this->createForm(SearchAllType::class);

@@ -40,8 +40,8 @@ class TeamCrudController extends AbstractCrudController
             BooleanField::new('isActive', 'Active'),
             BooleanField::new('isValidated', 'Validée')->hideOnIndex(),
             AssociationField::new('tournaments', 'Tournois')->onlyOnDetail(),
-            DateTimeField::new('createdAt', 'Créé le')->hideOnForm(),
-            DateTimeField::new('updatedAt', 'Mis à jour le')->hideOnForm(),
+            DateTimeField::new('createdAt', 'Créée le')->hideOnForm(),
+            DateTimeField::new('updatedAt', 'Mise à jour le')->hideOnForm(),
         ];
     }
 }

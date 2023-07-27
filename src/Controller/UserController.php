@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Service\InactiveTeam;
-use App\Service\PointsService;
-use App\Service\RankingService;
+use App\Service\UserPoints;
+use App\Service\UserRanking;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
@@ -19,10 +19,10 @@ class UserController extends AbstractController
 {
     #[Route('/{id}/profil', name: 'app_user_show', methods: ['GET', 'POST'])]
     public function show(
-        User $user,
-        Security $security,
-        RankingService $rankingService,
-        PointsService $pointsService,
+        User         $user,
+        Security     $security,
+        UserRanking  $userRanking,
+        UserPoints   $userPoints,
         InactiveTeam $inactiveTeam,
     ): Response
     {
@@ -32,7 +32,7 @@ class UserController extends AbstractController
             throw new AccessDeniedException('Vous n\'êtes pas autorisé à accéder à ce profil.');
         }
 
-        $pointsService->updateUsersPoints();
+        $userPoints->updateUsersPoints();
         $inactiveTeam->updateInactiveTeams($user);
         $teams = $user->getTeams();
         $results = $user->getResults();
@@ -50,7 +50,7 @@ class UserController extends AbstractController
             'teams' => $teams,
             'now' => new \DateTime(),
             'results' => $results,
-            'ranking' => $rankingService->getRank($user),
+            'ranking' => $userRanking->getRank($user),
         ]);
     }
 }
