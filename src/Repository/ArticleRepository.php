@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -54,7 +53,7 @@ class ArticleRepository extends ServiceEntityRepository
     public function findLatest(int $number): array
     {
         return $this->createQueryBuilder('a')
-            ->orderBy('a.id', 'DESC')
+            ->orderBy('a.createdAt', 'DESC')
             ->setMaxResults($number)
             ->getQuery()
             ->getResult();

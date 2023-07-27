@@ -1,0 +1,13 @@
+<div class="card shadow mb-4">
+    <div class="card-body">
+        {{ form_start(searchForm) }}
+        <div class="d-flex" style="padding: 2.5%;">
+            <div class="w-100 me-2">
+                {{ form_widget(searchForm.search, {'attr': {'placeholder': 'Rechercher un joueur...'}}) }}
+            </div>
+            <button class="btn btn-primary" type="submit"><i
+                        class="fa fa-search"></i></button>
+        </div>
+        {{ form_end(searchForm) }}
+    </div>
+</div>

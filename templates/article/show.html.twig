@@ -20,39 +20,89 @@
             </div>
             <div class="col-md-3">
                 <div class="ms-2 mt-5">
-                    <h4 class="ps-3 pb-2">Vous aimerez aussi...</h4>
-                    <ul class="list-group list-group-flush">
-                        <a href="{{ path("article_show", { id: latestArticles[0].id }) }}"
-                           class="list-group-item list-group-item-action pt-3 bg-transparent">
-                            <p class="mb-1"><i class="fas fa-volleyball pe-1"></i>
-                                {{ latestArticles[0].title }}</p>
-                            <p class="mb-0"><small class="text-body-secondary">Publié
-                                    le {{ latestArticles[0].createdAt ? latestArticles[0].createdAt|date('d-m-Y') : '' }}</small>
-                            </p>
-                        </a>
-                        <a href="{{ path("article_show", { id: latestArticles[1].id }) }}"
-                           class="list-group-item list-group-item-action pt-3 bg-transparent">
-                            <p class="mb-1"><i class="fas fa-volleyball pe-1"></i>
-                                {{ latestArticles[1].title }}</p>
-                            <p class="mb-0"><small class="text-body-secondary">Publié
-                                    le {{ latestArticles[1].createdAt ? latestArticles[1].createdAt|date('d-m-Y') : '' }}</small>
-                            </p>
-                        </a>
-                        <a href="{{ path("article_show", { id: latestArticles[2].id }) }}"
-                           class="list-group-item list-group-item-action pt-3 bg-transparent">
-                            <p class="mb-1"><i class="fas fa-volleyball pe-1"></i>
-                                {{ latestArticles[2].title }}</p>
-                            <p class="mb-0"><small class="text-body-secondary">Publié
-                                    le {{ latestArticles[2].createdAt ? latestArticles[2].createdAt|date('d-m-Y') : '' }}</small>
-                            </p>
-                        </a>
-                    </ul>
+                    <h4 class="pb-2 text-primary fw-bold">Les derniers articles...</h4>
+                    <a href="{{ path("article_show", { id: latestArticles[0].id }) }}" class="text-decoration-none">
+                        <div class="card mb-3 pt-1 fbvs-hover-size shadow" style="max-width: 300px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{ vich_uploader_asset(latestArticles[0]) }}" class="img-fluid p-2"
+                                         alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <p class="small mb-0">{{ latestArticles[0].title }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{{ path("article_show", { id: latestArticles[1].id }) }}" class="text-decoration-none">
+                        <div class="card mb-3 pt-1 fbvs-hover-size shadow" style="max-width: 300px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{ vich_uploader_asset(latestArticles[1]) }}" class="img-fluid p-2"
+                                         alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <p class="small mb-0">{{ latestArticles[1].title }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{{ path("article_show", { id: latestArticles[2].id }) }}" class="text-decoration-none">
+                        <div class="card mb-3 pt-1 fbvs-hover-size shadow" style="max-width: 300px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{ vich_uploader_asset(latestArticles[2]) }}" class="img-fluid p-2"
+                                         alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <p class="small mb-0">{{ latestArticles[2].title }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
                     <div class="list-group-item d-flex justify-content-end bg-transparent p-3 mt-3">
-                        <a href="{{ path("app_index") }}"><i class="fas fa-right-from-bracket pe-1"></i>Retour à la
+                        <a href="{{ path("app_index") }}" class="fbvs-hover-size"><i class="fas fa-right-from-bracket pe-1"></i>Retour à la
                             liste</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+    {#
+    <ul class="list-group list-group-flush">
+        <a href="{{ path("article_show", { id: latestArticles[0].id }) }}"
+           class="list-group-item list-group-item-action pt-3 bg-transparent">
+            <p class="mb-1"><i class="fas fa-volleyball pe-1"></i>
+                {{ latestArticles[0].title }}</p>
+            <p class="mb-0"><small class="text-body-secondary">Publié
+                    le {{ latestArticles[0].createdAt ? latestArticles[0].createdAt|date('d-m-Y') : '' }}</small>
+            </p>
+        </a>
+        <a href="{{ path("article_show", { id: latestArticles[1].id }) }}"
+           class="list-group-item list-group-item-action pt-3 bg-transparent">
+            <p class="mb-1"><i class="fas fa-volleyball pe-1"></i>
+                {{ latestArticles[1].title }}</p>
+            <p class="mb-0"><small class="text-body-secondary">Publié
+                    le {{ latestArticles[1].createdAt ? latestArticles[1].createdAt|date('d-m-Y') : '' }}</small>
+            </p>
+        </a>
+        <a href="{{ path("article_show", { id: latestArticles[2].id }) }}"
+           class="list-group-item list-group-item-action pt-3 bg-transparent">
+            <p class="mb-1"><i class="fas fa-volleyball pe-1"></i>
+                {{ latestArticles[2].title }}</p>
+            <p class="mb-0"><small class="text-body-secondary">Publié
+                    le {{ latestArticles[2].createdAt ? latestArticles[2].createdAt|date('d-m-Y') : '' }}</small>
+            </p>
+        </a>
+    </ul> #}
+
 {% endblock %}

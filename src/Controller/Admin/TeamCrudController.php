@@ -6,6 +6,7 @@ use App\Entity\Team;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\{Action, Actions, Crud};
@@ -34,10 +35,13 @@ class TeamCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            DateTimeField::new('createdAt', 'Créé le')->hideOnForm(),
-            DateTimeField::new('updatedAt', 'Mis à jour le')->hideOnForm(),
-            AssociationField::new('players', 'Joueurs'),
+            AssociationField::new('players', 'Joueurs')->onlyOnForms(),
+            CollectionField::new('players', 'Joueurs')->hideOnForm(),
             BooleanField::new('isActive', 'Active'),
+            BooleanField::new('isValidated', 'Validée')->hideOnIndex(),
+            AssociationField::new('tournaments', 'Tournois')->onlyOnDetail(),
+            DateTimeField::new('createdAt', 'Créée le')->hideOnForm(),
+            DateTimeField::new('updatedAt', 'Mise à jour le')->hideOnForm(),
         ];
     }
 }

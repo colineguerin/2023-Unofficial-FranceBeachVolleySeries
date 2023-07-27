@@ -4,10 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Tournament;
 use App\Form\RegisterTournamentType;
-use App\Form\SearchTournamentType;
-use App\Repository\TeamRepository;
+use App\Form\SearchAllType;
 use App\Repository\TournamentRepository;
-use App\Repository\UserRepository;
+use App\Service\TournamentCalculator;
+use App\Service\TournamentRegistration;
+use App\Service\TournamentCompletion;
 use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,122 +23,72 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class TournamentController extends AbstractController
 {
     #[Route('/', name: 'app_tournament_index', methods: ['GET', 'POST'])]
-    public function index(Request $request, TournamentRepository $tournamentRepository, PaginatorInterface $paginator): Response
+    public function index(
+        Request              $request,
+        TournamentRepository $tournamentRepository,
+        PaginatorInterface   $paginator,
+        TournamentCalculator $tournamentCalculator,
+    ): Response
     {
-        //search bar
-        $form = $this->createForm(SearchTournamentType::class);
-        $form->handleRequest($request);
+        // Search bar
+        $searchForm = $this->createForm(SearchAllType::class);
+        $searchForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $search = $form->getData()['search'];
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $search = $searchForm->getData()['search'];
             $allTournaments = $tournamentRepository->findByNameTypeOrLocation($search);
-            $tournaments = $paginator->paginate(
-                $allTournaments,
-                $request->query->getInt('page', 1),
-                10
-            );
+
         } else {
             $allTournaments = $tournamentRepository->findBy([], ['tournamentDate' => 'DESC']);
-            $tournaments = $paginator->paginate(
-                $allTournaments,
-                $request->query->getInt('page', 1),
-                10
-            );
         }
 
-        //Get upcoming and past tournaments
-        $allTournaments = $tournamentRepository->findAll();
-        $currentDateTime = new DateTime();
-        $pastTournaments = 0;
-        $upcomingTournaments = 0;
-
-        foreach ($allTournaments as $allTournament) {
-            $tournamentDate = $allTournament->getTournamentDate();
-
-            if ($tournamentDate < $currentDateTime) {
-                $pastTournaments++;
-            } else {
-                $upcomingTournaments++;
-            }
-        }
+        // Pagination
+        $tournaments = $paginator->paginate(
+            $allTournaments,
+            $request->query->getInt('page', 1),
+            10
+        );
 
         return $this->render('tournament/index.html.twig', [
             'tournaments' => $tournaments,
-            'pastTournaments' => $pastTournaments,
-            'upcomingTournaments' => $upcomingTournaments,
-            'now' => $currentDateTime,
-            'form' => $form,
+            'pastTournaments' => $tournamentCalculator->calculatePastTournaments($tournamentRepository->findAll()),
+            'upcomingTournaments' => $tournamentCalculator->calculateUpcomingTournaments($tournamentRepository->findAll()),
+            'now' => new DateTime(),
+            'searchForm' => $searchForm,
         ]);
     }
 
     #[Route('/{id}', name: 'app_tournament_show', methods: ['GET', 'POST'])]
     public function show(
-        Tournament $tournament,
-        Request $request,
-        TournamentRepository $tournamentRepository,
-        Security $security,
-        UserRepository $userRepository
+        Tournament             $tournament,
+        Request                $request,
+        Security               $security,
+        TournamentCompletion   $tournamentCompletion,
+        TournamentRegistration $tournamentRegistration,
     ): Response
     {
-        $teams = $tournament->getTeams();
+        $userTeams = $security->getUser()->getTeams();
 
-        $registeredTeams = count($teams);
-        $availableSpots = $tournament->getMaxTeam() - $registeredTeams;
-        $completionPercentage = 100 - (($availableSpots / $tournament->getMaxTeam()) * 100);
-        $currentDateTime = new DateTime();
-
-        // Register a team
-        $userId = $security->getUser()->getId();
-        $user = $userRepository->findOneBy(['id' => $userId]);
-
-
-        $form = $this->createForm(RegisterTournamentType::class, $tournament, ['current_user' => $user]);
+        $form = $this->createForm(RegisterTournamentType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $teams = $tournament->getTeams();
-            $teams[] = $form->get('teams')->getData()->first();
-            foreach ($teams as $team)
-            {
-                $tournament->addTeam($team);
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $tournamentRegistration->registerTeam($form, $tournament);
+                $this->addFlash('success', 'Votre équipe a bien été inscrite.');
+            } catch(\Exception $e) {
+                $this->addFlash('danger', $e->getMessage());
             }
-
-            $tournamentRepository->save($tournament, true);
-            $this->addFlash('success', 'Votre équipe a bien été inscrite.');
-
-            return $this->redirectToRoute('app_user_show', ['id' => $userId], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('tournament/show.html.twig', [
             'tournament' => $tournament,
-            'availableSpots' => $availableSpots,
-            'completionPercentage' => $completionPercentage,
-            'teams' => $teams,
+            'alreadyRegistered' => $tournamentRegistration->checkIfRegistered($tournament, $userTeams),
+            'availableSpots' => $tournamentCompletion->getAvailableSpots($tournament),
+            'completionPercentage' => $tournamentCompletion->getCompletionPercentage($tournament),
+            'teams' => $tournament->getTeams(),
             'form' => $form,
-            'now' => $currentDateTime,
+            'now' => new DateTime(),
         ]);
     }
-
-    /* #[Route('/{id}/inscription', name: 'app_tournament_register', methods: ['GET', 'POST'])]
-    public function registerTournament(Request $request, Tournament $tournament, TournamentRepository $tournamentRepository): Response
-    {
-        $form = $this->createForm(RegisterTournamentType::class, $tournament);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $team = $tournament->getTeams()->first();
-            $tournament->addTeam($team);
-            $tournamentRepository->save($tournament, true);
-            $this->addFlash('success', 'Votre équipe a bien été inscrite.');
-            return $this->redirectToRoute('app_tournament_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('tournament/register.html.twig', [
-            'form' => $form,
-            'tournament' => $tournament,
-        ]);
-    }*/
-
 }

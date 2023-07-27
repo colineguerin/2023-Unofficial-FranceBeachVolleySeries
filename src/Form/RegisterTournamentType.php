@@ -2,43 +2,49 @@
 
 namespace App\Form;
 
-use App\Entity\Team;
-use App\Entity\Tournament;
-use App\Entity\User;
-use Doctrine\ORM\EntityRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Repository\TeamRepository;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RegisterTournamentType extends AbstractType
 {
+    private Security $security;
+
+    /**
+     * @param Security $security
+     */
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $currentUser = $options['current_user'];
+        $currentUser = $this->security->getUser();
+        $teams = $currentUser->getTeams();
+        $teamChoices = [];
+
+        foreach ($teams as $team) {
+            if ($team->isIsValidated() && $team->isIsActive()) {
+                $teamChoices[$team->__toString()] = $team;
+            }
+        }
 
         $builder
-            ->add('teams', EntityType::class, [
-                'class' => Team::class,
+            ->add('team', ChoiceType::class, [
                 'label' => false,
-                'multiple' => true,
-                'expanded' => true,
-                'query_builder' => function (EntityRepository $er) use ($currentUser) {
-                    return $er->createQueryBuilder('t')
-                        ->innerJoin('t.players', 'p')
-                        ->where('p.id = :userId')
-                        ->setParameter('userId', $currentUser->getId());
-                },
-            ])
-        ;
+                'choices' => $teamChoices,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Tournament::class,
-            'current_user' => null,
+
         ]);
-        $resolver->setAllowedTypes('current_user', User::class);
     }
 }

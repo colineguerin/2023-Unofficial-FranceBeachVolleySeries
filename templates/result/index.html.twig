@@ -3,18 +3,6 @@
 {% block body %}
 
     <div class="container mt-4">
-        {% for category, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="row">
-                    <div class="col">
-                        <div class="alert alert-{{ category }} w-25">
-                            <i class="fa-solid fa-circle-check pe-2"></i>
-                            {{ message }}
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        {% endfor %}
         <div class="row">
             <div class="col">
                 <h1 class="fs-3 mb-4">Classement national</h1>
@@ -22,82 +10,18 @@
         </div>
         <div class="row">
             <div class="col-xl-6 col-md-6">
-                <div class="card bg-pattern shadow mb-4">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <i class="fa fa-ranking-star text-danger h4 ml-3"></i>
-                            <h5 class="font-size-20 mt-0 text-danger fw-bold">Classement féminin</h5>
-                        </div>
-                        <div class="ps-5">
-                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: goldenrod"></i><span
-                                        class="fw-bold">1 - {{ womanPodium[0].firstname }} {{ womanPodium[0].lastname }}</span>
-                                ({{ womanPodium[0].point }} points)</p>
-                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: silver"></i><span
-                                        class="fw-bold">2 - {{ womanPodium[1].firstname }} {{ womanPodium[1].lastname }}</span>
-                                ({{ womanPodium[1].point }} points)</p>
-                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: brown"></i><span
-                                        class="fw-bold">3 - {{ womanPodium[2].firstname }} {{ womanPodium[2].lastname }}</span>
-                                ({{ womanPodium[2].point }} points)</p>
-                        </div>
-                    </div>
-                </div>
+                {% include 'result/cards/womanPodium.html.twig' %}
             </div>
             <div class="col-xl-6 col-md-6">
-                <div class="card bg-pattern shadow mb-4">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <i class="fa fa-ranking-star text-success h4 ml-3"></i>
-                            <h5 class="font-size-20 mt-0 text-success fw-bold">Classement masculin</h5>
-                        </div>
-                        <div class="ps-5">
-                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: goldenrod"></i><span
-                                        class="fw-bold">1 - {{ manPodium[0].firstname }} {{ manPodium[0].lastname }}</span>
-                                ({{ manPodium[0].point }} points)</p>
-                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: silver"></i><span
-                                        class="fw-bold">2 - {{ manPodium[1].firstname }} {{ manPodium[1].lastname }}</span>
-                                ({{ manPodium[1].point }} points)</p>
-                            <p class="mb-1"><i class="fa-solid fa-medal pe-2" style="color: brown"></i><span
-                                        class="fw-bold">3 - {{ manPodium[2].firstname }} {{ manPodium[2].lastname }}</span>
-                                ({{ manPodium[2].point }} points)</p>
-                        </div>
-                    </div>
-                </div>
+                {% include 'result/cards/manPodium.html.twig' %}
             </div>
         </div>
         <div class="row">
             <div class="col-xl-4 col-md-6">
-                <div class="card shadow mb-4">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h5 class="mt-0">Filtrer par genre</h5>
-                            <i class="fa fa-venus-mars text-primary h4 ml-3"></i>
-                        </div>
-                        {{ form_start(filterForm) }}
-                        <div class="d-flex">
-                            <div class="w-100 pt-2">
-                                {{ form_widget(filterForm.gender, {'attr': {'class': 'd-flex justify-content-evenly'}}) }}
-                            </div>
-                            <button class="btn btn-primary me-5" type="submit"><i
-                                        class="fa fa-check"></i></button>
-                        </div>
-                        {{ form_end(filterForm) }}
-                    </div>
-                </div>
+                {% include 'result/cards/filter.html.twig' %}
             </div>
             <div class="col-xl-6 col-md-6">
-                <div class="card shadow mb-4">
-                    <div class="card-body">
-                        {{ form_start(searchForm) }}
-                        <div class="d-flex" style="padding: 2.5%;">
-                            <div class="w-100 me-2">
-                                {{ form_widget(searchForm.search, {'attr': {'placeholder': 'Rechercher un joueur...'}}) }}
-                            </div>
-                            <button class="btn btn-primary" type="submit"><i
-                                        class="fa fa-search"></i></button>
-                        </div>
-                        {{ form_end(searchForm) }}
-                    </div>
-                </div>
+                {% include 'result/cards/search.html.twig' %}
             </div>
             <div class="col-xl-2 col-md-6">
                 <div class="d-flex justify-content-center w-100 py-4 my-2">

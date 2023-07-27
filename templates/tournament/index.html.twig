@@ -3,18 +3,6 @@
 {% block body %}
 
     <div class="container mt-4">
-        {% for category, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="row">
-                    <div class="col">
-                        <div class="alert alert-{{ category }} w-25">
-                            <i class="fa-solid fa-circle-check pe-2"></i>
-                            {{ message }}
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        {% endfor %}
         <div class="row">
             <div class="col">
                 <h1 class="fs-3 mb-4">Tournois officiels</h1>
@@ -46,15 +34,15 @@
             <div class="col-xl-6 col-md-6">
                 <div class="card shadow mb-4">
                     <div class="card-body">
-                        {{ form_start(form) }}
+                        {{ form_start(searchForm) }}
                         <div class="d-flex p-2">
                             <div class="w-100 me-2">
-                                {{ form_widget(form.search, {'attr': {'placeholder': 'Rechercher...'}}) }}
+                                {{ form_widget(searchForm.search, {'attr': {'placeholder': 'Rechercher...'}}) }}
                             </div>
                             <button class="btn btn-primary" type="submit"><i
                                         class="fa fa-search"></i></button>
                         </div>
-                        {{ form_end(form) }}
+                        {{ form_end(searchForm) }}
                     </div>
                 </div>
             </div>
@@ -65,7 +53,7 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <div class="table-responsive project-list">
-                            <table class="table project-table table-centered table-nowrap table-hover">
+                            <table class="table project-table table-centered table-nowrap table-hover table-responsive">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -74,11 +62,11 @@
                                     <th scope="col">Catégorie</th>
                                     <th scope="col">Lieu</th>
                                     <th scope="col">Statut</th>
-                                    <th scope="col">S'inscrire</th>
+                                    <th scope="col">Inscription</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% set rank = 1 %}
+                                {% set rank = (tournaments.getCurrentPageNumber() - 1) * tournaments.getItemNumberPerPage() + 1 %}
                                 {% for tournament in tournaments %}
                                     <tr>
                                         <td>{{ rank }}</td>
@@ -102,7 +90,7 @@
                                         <td>
                                             <div class="action d-flex">
                                                 <a href="{{ path('app_tournament_show', { id: tournament.id }) }}"
-                                                   class="text-primary mt-2 mx-1 icon-link icon-link-hover"> <i
+                                                   class="text-primary mt-2 mx-1 fbvs-hover-size"> <i
                                                             class="fa fa-arrow-right-from-bracket h5 m-0"></i></a>
                                             </div>
                                         </td>

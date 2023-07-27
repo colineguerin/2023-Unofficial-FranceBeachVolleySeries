@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use App\Form\FilterUserType;
-use App\Form\SearchUserType;
+use App\Form\SearchAllType;
 use App\Repository\UserRepository;
+use App\Service\UserPoints;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,28 +17,18 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ResultController extends AbstractController
 {
     #[Route('/classement', name: 'app_result', methods: ['GET', 'POST'])]
-    public function index(UserRepository $userRepository, Request $request, PaginatorInterface $paginator): Response
+    public function index(
+        UserRepository     $userRepository,
+        Request            $request,
+        PaginatorInterface $paginator,
+        UserPoints         $userPoints,
+    ): Response
     {
         // Update player total points
-        $users = $userRepository->findAll();
-        foreach ($users as $user) {
-            $results = $user->getResults();
-            $points = [];
-            foreach ($results as $result) {
-                $points[] = $result->getPoints();
-            }
+        $userPoints->updateUsersPoints();
 
-            $user->setPoint(array_sum($points));
-
-            $userRepository->save($user, true);
-        }
-
-        // Get first three players
-        $womanPodium = $userRepository->findWomanPodium();
-        $manPodium = $userRepository->findManPodium();
-
-        // Search bar
-        $searchForm = $this->createForm(SearchUserType::class);
+        // Search and filter forms
+        $searchForm = $this->createForm(SearchAllType::class);
         $searchForm->handleRequest($request);
 
         $filterForm = $this->createForm(FilterUserType::class);
@@ -67,8 +58,8 @@ class ResultController extends AbstractController
         return $this->render('result/index.html.twig', [
             'players' => $players,
             'searchForm' => $searchForm,
-            'womanPodium' => $womanPodium,
-            'manPodium' => $manPodium,
+            'womanPodium' => $userRepository->findWomanPodium(),
+            'manPodium' => $userRepository->findManPodium(),
             'filterForm' => $filterForm,
         ]);
     }

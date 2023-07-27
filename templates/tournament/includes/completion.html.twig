@@ -1,0 +1,44 @@
+<div class="col-lg-12">
+    <dl class="dl-horizontal">
+        {% if tournament.tournamentDate < now %}
+            <dt>Le tournoi est déjà passé :</dt>
+            {% if availableSpots > 0 %}
+                <dd>
+                    <div class="progress progress-striped active m-b-sm">
+                        <div style="width: {{ completionPercentage }}%;"
+                             class="progress-bar bg-danger"></div>
+                    </div>
+                    <small>{{ tournament.maxTeam - availableSpots }} équipes ont participé à ce tournoi.</small>
+                </dd>
+            {% else %}
+                <dd>
+                    <div class="progress progress-striped active m-b-sm">
+                        <div style="width: {{ completionPercentage }}%;"
+                             class="progress-bar bg-danger"></div>
+                    </div>
+                    <small>Le tournoi était complet !</small>
+                </dd>
+            {% endif %}
+        {% else %}
+            {% if availableSpots > 0 %}
+                <dt>Le tournoi n'est pas encore complet :</dt>
+                <dd>
+                    <div class="progress progress-striped active m-b-sm">
+                        <div style="width: {{ completionPercentage }}%;"
+                             class="progress-bar bg-success"></div>
+                    </div>
+                    <small>Il reste <strong>{{ availableSpots }}</strong> places
+                        !</small>
+                </dd>
+            {% else %}
+                <dt>Le tournoi est déjà complet !</dt>
+                <dd>
+                    <div class="progress progress-striped active m-b-sm">
+                        <div style="width: {{ completionPercentage }}%;"
+                             class="progress-bar bg-success"></div>
+                    </div>
+                </dd>
+            {% endif %}
+        {% endif %}
+    </dl>
+</div>
