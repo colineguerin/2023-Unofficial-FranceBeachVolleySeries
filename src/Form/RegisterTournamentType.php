@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\User;
 use App\Repository\TeamRepository;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
@@ -13,15 +12,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class RegisterTournamentType extends AbstractType
 {
     private Security $security;
-    private TeamRepository $teamRepository;
 
     /**
      * @param Security $security
      */
-    public function __construct(Security $security, TeamRepository $teamRepository)
+    public function __construct(Security $security)
     {
         $this->security = $security;
-        $this->teamRepository = $teamRepository;
     }
 
 

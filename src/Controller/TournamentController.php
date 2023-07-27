@@ -9,7 +9,6 @@ use App\Repository\TournamentRepository;
 use App\Service\TournamentCalculator;
 use App\Service\TournamentRegistration;
 use App\Service\TournamentCompletion;
-use App\Service\UserRanking;
 use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
