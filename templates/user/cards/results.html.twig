@@ -16,12 +16,18 @@
             </li>
             {% else %}
             {% for result in results %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <p class="mb-0"><b>{{ result.ranking }}e</b> place : {{ result.points }}
-                        points</p>
-                    <p class="text-muted mb-0"><small
-                                class="text-body-secondary">{{ result.tournament.name }}</small>
-                    </p>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <p class="mb-0"><b>{{ result.ranking }}e</b> place : {{ result.points }}
+                                points</p>
+                        </div>
+                        <div class="col-sm-5">
+                            <p class="text-muted mb-0"><small
+                                        class="text-body-secondary">{{ result.tournament.name }}</small>
+                            </p>
+                        </div>
+                    </div>
                 </li>
             {% endfor %}
         </ul>

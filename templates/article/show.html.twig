@@ -22,54 +22,35 @@
                 <div class="ms-2 mt-5">
                     <h4 class="pb-2 text-primary fw-bold">Les derniers articles...</h4>
                     <a href="{{ path("article_show", { id: latestArticles[0].id }) }}" class="text-decoration-none">
-                        <div class="card mb-3 pt-1 fbvs-hover-size shadow" style="max-width: 300px;">
+                        <div class="card mb-3 fbvs-hover-size shadow d-flex" style="max-width: 300px;">
                             <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img src="{{ vich_uploader_asset(latestArticles[0]) }}" class="img-fluid p-2"
-                                         alt="...">
-                                </div>
-                                <div class="col-md-8">
                                     <div class="card-body">
-                                        <p class="small mb-0">{{ latestArticles[0].title }}</p>
+                                        <p class="small mb-0 text-primary fw-bold">{{ latestArticles[0].title }}</p>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </a>
                     <a href="{{ path("article_show", { id: latestArticles[1].id }) }}" class="text-decoration-none">
-                        <div class="card mb-3 pt-1 fbvs-hover-size shadow" style="max-width: 300px;">
+                        <div class="card mb-3 fbvs-hover-size shadow" style="max-width: 300px;">
                             <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img src="{{ vich_uploader_asset(latestArticles[1]) }}" class="img-fluid p-2"
-                                         alt="...">
-                                </div>
-                                <div class="col-md-8">
                                     <div class="card-body">
-                                        <p class="small mb-0">{{ latestArticles[1].title }}</p>
+                                        <p class="small mb-0 text-primary fw-bold">{{ latestArticles[1].title }}</p>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </a>
                     <a href="{{ path("article_show", { id: latestArticles[2].id }) }}" class="text-decoration-none">
-                        <div class="card mb-3 pt-1 fbvs-hover-size shadow" style="max-width: 300px;">
+                        <div class="card mb-3 fbvs-hover-size shadow" style="max-width: 300px;">
                             <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img src="{{ vich_uploader_asset(latestArticles[2]) }}" class="img-fluid p-2"
-                                         alt="...">
-                                </div>
-                                <div class="col-md-8">
                                     <div class="card-body">
-                                        <p class="small mb-0">{{ latestArticles[2].title }}</p>
+                                        <p class="small mb-0 text-primary fw-bold">{{ latestArticles[2].title }}</p>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </a>
 
                     <div class="list-group-item d-flex justify-content-end bg-transparent p-3 mt-3">
-                        <a href="{{ path("app_index") }}" class="fbvs-hover-size"><i class="fas fa-right-from-bracket pe-1"></i>Retour à la
-                            liste</a>
+                        <a href="{{ path("app_index") }}" class="fbvs-hover-size text-secondary"><i class="fas fa-right-from-bracket pe-1"></i>Voir tous les articles</a>
                     </div>
                 </div>
             </div>

@@ -6,7 +6,7 @@
     <title>FBVS : Nouvelle équipe à valider</title>
 </head>
 <body>
-<h5>Bonjour, {{ partner.firstname }} !</h5>
+<h4>Bonjour, {{ partner.firstname }} !</h4>
 <p> Une demande de création d'équipe vient de vous être envoyée par {{ user.firstname }} {{ user.lastname }}.</p>
 <p>Rendez-vous sur <a href="{{ url('app_user_show', {'id': partner.id})}}">votre profil</a> pour valider cette nouvelle équipe.</p>
 <p>Vous pourrez ensuite vous inscrire à des tournois avec {{ user.firstname }}.</p>

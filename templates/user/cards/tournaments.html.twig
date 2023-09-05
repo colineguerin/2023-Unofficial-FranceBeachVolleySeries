@@ -23,13 +23,6 @@
                 </li>
             {% else %}
                 {% for team in teams %}
-                    {% if team.tournaments is empty %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <small class="text-body-secondary">Vous n'avez aucun tournoi
-                                pour le moment avec l'équipe {{ team.players[0].firstname }} {{ team.players[0].lastname }} / {{ team.players[1].firstname }} {{ team.players[1].lastname }}
-                                .</small>
-                        </li>
-                    {% else %}
                         {% for tournament in team.tournaments %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div class="d-flex flex-column">
@@ -49,7 +42,6 @@
                                 </div>
                             </li>
                         {% endfor %}
-                    {% endif %}
                 {% endfor %}
             {% endif %}
         </ul>
